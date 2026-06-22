@@ -300,6 +300,9 @@ export default function GamesPage() {
             <button onClick={() => setLang('hu')} className={`px-2 py-1 rounded-md font-semibold transition-colors ${lang === 'hu' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}>HU</button>
             <button onClick={() => setLang('en')} className={`px-2 py-1 rounded-md font-semibold transition-colors ${lang === 'en' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}>EN</button>
           </div>
+          {session?.user.email === 'orojansandor@gmail.com' && (
+            <Link to="/admin" className="text-xs text-indigo-600 border border-indigo-200 bg-indigo-50 px-2 py-1.5 rounded-lg font-semibold">🔐</Link>
+          )}
           <button
             onClick={handleSignOut}
             className="text-xs text-slate-500 border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors font-medium"
@@ -359,6 +362,14 @@ export default function GamesPage() {
           {session && (
             <div className="space-y-1">
               <div className="text-xs text-slate-400 truncate px-1">{session.user.email}</div>
+              {session.user.email === 'orojansandor@gmail.com' && (
+                <Link
+                  to="/admin"
+                  className="w-full flex items-center gap-2 text-xs text-indigo-600 hover:text-indigo-800 border border-indigo-200 bg-indigo-50 px-3 py-2 rounded-lg transition-colors font-semibold"
+                >
+                  🔐 Admin
+                </Link>
+              )}
               <button
                 onClick={handleSignOut}
                 className="w-full text-left text-xs text-slate-500 hover:text-slate-800 border border-slate-200 px-3 py-2 rounded-lg transition-colors"
