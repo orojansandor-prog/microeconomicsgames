@@ -1,0 +1,41 @@
+# Microeconomics Games
+
+> AI-alapú interaktív mikroökonómia játékok és tanulási platform
+
+**URL:** https://microeconomicsgames.com
+**Szerző:** Oroján Sándor, egyetemi oktató, Nyíregyházi Egyetem
+**Nyelv:** Magyar (HU) és angol (EN) kétnyelvű
+**Ingyenes:** igen, regisztráció nélkül játszható
+
+## Mi ez?
+
+A Microeconomics Games egy innovatív oktatási platform, amely a mikroökonómia tanulását interaktív, mesterséges intelligencia által támogatott játékok segítségével teszi élményszerűvé. A platform célja, hogy a hagyományos tananyagokat modern technológiai eszközökkel egészítse ki.
+
+## Elérhető játékok és szintek
+
+### Monopólium
+Négy progresszív szint:
+1. Monopólium alapjai — vásárlói fizetési hajlandóság, optimális ár és mennyiség
+2. Árdiszkrimináció — első-, másod- és harmadfokú árdiszkrimináció
+3. Oligopólium — Cournot, Bertrand, Stackelberg modellek
+4. Árszabályozás — árplafon, árpadló, természetes monopólium szabályozása
+
+## Technológia
+
+- **Közgazdasági motor:** determinisztikus TypeScript motor (kereslet, MR, MC, DWL, CS, PS számítások)
+- **AI tutor:** Claude AI (Anthropic) — szókratészi módszerű coaching HU/EN
+- **Frontend:** React + Vite + TypeScript + Tailwind CSS
+- **Backend:** Netlify Functions + Supabase (auth + progress DB)
+- **Deploy:** Netlify CI/CD, GitHub
+
+## Szerzőről
+
+Oroján Sándor a Nyíregyházi Egyetem oktatója, szenvedélye a mikro- és makroökonómia oktatása. A platformot szabad idejében fejlesztette, célja a játékos, AI-segített tanulás elterjesztése a közgazdaságtanban.
+
+## Kapcsolat és visszajelzés
+
+A főoldalon elérhető kapcsolati űrlapon keresztül.
+
+## Adatvédelem
+
+Google, GitHub és email alapú bejelentkezés (Supabase auth). Tárolt adat: email cím és játékeredmények (ranglistához).
