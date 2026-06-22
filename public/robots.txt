@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://microeconomicsgames.com/sitemap.xml
