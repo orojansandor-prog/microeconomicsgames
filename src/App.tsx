@@ -32,10 +32,21 @@ import EL4 from './components/elasticity/Level4'
 
 function AppRoutes() {
   const { loading } = useAuth()
-  if (loading) return (
+
+  // Public routes render immediately without waiting for auth state.
+  // This enables react-snap prerendering and avoids a blank-page flash.
+  const loadingFallback = (
     <div className="flex items-center justify-center min-h-screen">
       <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
     </div>
+  )
+
+  if (loading) return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="*" element={loadingFallback} />
+    </Routes>
   )
 
   return (
