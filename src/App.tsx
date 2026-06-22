@@ -31,7 +31,7 @@ import EL3 from './components/elasticity/Level3'
 import EL4 from './components/elasticity/Level4'
 
 function AppRoutes() {
-  const { loading } = useAuth()
+  const { loading, session } = useAuth()
 
   // Public routes render immediately without waiting for auth state.
   // This enables react-snap prerendering and avoids a blank-page flash.
