@@ -29,6 +29,7 @@ import EL1 from './components/elasticity/Level1'
 import EL2 from './components/elasticity/Level2'
 import EL3 from './components/elasticity/Level3'
 import EL4 from './components/elasticity/Level4'
+import AdminPage from './pages/AdminPage'
 
 function AppRoutes() {
   const { loading, session } = useAuth()
@@ -80,6 +81,7 @@ function AppRoutes() {
       <Route path="/games/elasticity/level/2" element={<ProtectedRoute><EL2 /></ProtectedRoute>} />
       <Route path="/games/elasticity/level/3" element={<ProtectedRoute><EL3 /></ProtectedRoute>} />
       <Route path="/games/elasticity/level/4" element={<ProtectedRoute><EL4 /></ProtectedRoute>} />
+      <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
