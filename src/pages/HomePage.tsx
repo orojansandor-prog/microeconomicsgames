@@ -59,7 +59,7 @@ export default function HomePage() {
       <section className="sm:hidden bg-slate-950">
         <img
           src="/microgameshero2.png"
-          alt=""
+          alt="Microeconomics Games – interaktív közgazdaságtani játékok"
           className="w-full object-cover max-h-56"
         />
         <div className="px-5 py-8 text-center">
@@ -101,7 +101,7 @@ export default function HomePage() {
       <section className="hidden sm:block relative">
         <img
           src="/microgameshero2.png"
-          alt=""
+          alt="Microeconomics Games – interaktív közgazdaságtani játékok"
           className="w-full object-contain"
         />
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: 'rgba(0,0,0,0.30)' }} />
