@@ -53,9 +53,11 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo/brand */}
         <div className="text-center mb-8">
-          <div className="text-4xl mb-3">📈</div>
-          <h1 className="text-3xl font-bold text-slate-900">MicroeconomicsGames</h1>
-          <p className="mt-2 text-slate-500 text-sm">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <img src="/microeconomicsgameslogo1.png" alt="MicroeconomicsGames" className="h-16 w-auto" />
+          </div>
+          <p className="font-black text-sm tracking-widest text-slate-800 uppercase leading-tight">PLAY · LEARN · MASTER!</p>
+          <p className="mt-1 text-slate-500 text-xs">
             {t('Tanuld meg a közgazdaságtant játszva', 'Learn economics by playing')}
           </p>
         </div>
