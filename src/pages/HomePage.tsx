@@ -54,28 +54,65 @@ export default function HomePage() {
       <Navbar />
 
       {/* ── 1. HERO ──────────────────────────────────────────────── */}
-      <section className="relative">
-        {/* Hero image — teljes méret, nem vágva */}
+
+      {/* Mobile hero: kép + szöveg egymás alatt */}
+      <section className="sm:hidden bg-slate-950">
+        <img
+          src="/microgameshero2.png"
+          alt=""
+          className="w-full object-cover max-h-56"
+        />
+        <div className="px-5 py-8 text-center">
+          <h1 className="text-3xl font-black text-white tracking-tight leading-none">
+            Microeconomics
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-300 to-indigo-200">
+              Games
+            </span>
+          </h1>
+          <p className="mt-3 text-base text-indigo-200 font-light leading-relaxed">
+            Learn Economics Through Play and AI.
+          </p>
+          <p className="mt-2 text-sm text-slate-400">
+            {t(
+              'Interaktív játékok, MI-tutor és valós példák — a mikroökonómia most már élmény.',
+              'Interactive games, AI tutoring, and real-world examples — microeconomics as an experience.',
+            )}
+          </p>
+          <div className="mt-6 flex flex-col gap-3">
+            <Link
+              to={session ? '/dashboard' : '/login'}
+              className="shimmer-btn inline-flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold px-7 py-3.5 rounded-2xl shadow-lg text-base"
+            >
+              {t('Játékok megnyitása', 'Explore the games')}
+              <span>→</span>
+            </Link>
+            <a
+              href="#mi-ez"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white font-semibold px-7 py-3.5 rounded-2xl text-base"
+            >
+              {t('Tudj meg többet', 'Learn more')}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Desktop hero: overlay megmarad */}
+      <section className="hidden sm:block relative">
         <img
           src="/microgameshero2.png"
           alt=""
           className="w-full object-contain"
         />
-
-        {/* Halványítás — 1. réteg: egyenletes dimming */}
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: 'rgba(0,0,0,0.30)' }} />
-
-        {/* Halványítás — 2. réteg: extra center darkening */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: 'radial-gradient(ellipse 60% 70% at 52% 50%, rgba(0,0,20,0.50) 0%, transparent 100%)',
           }}
         />
-
-        {/* Szöveg réteg */}
         <div className="absolute inset-0 flex items-center justify-center">
-        <div className="max-w-5xl w-full mx-auto px-4 sm:px-6 text-center">
+          <div className="max-w-5xl w-full mx-auto px-4 sm:px-6 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none drop-shadow-lg">
               Microeconomics
               <br />
@@ -83,18 +120,15 @@ export default function HomePage() {
                 Games
               </span>
             </h1>
-
             <p className="mt-5 text-lg sm:text-xl text-indigo-100 font-light leading-relaxed drop-shadow">
               Learn Economics Through Play and AI.
             </p>
-
             <p className="mt-3 text-sm text-indigo-200/90 drop-shadow">
               {t(
                 'Interaktív játékok, MI-tutor és valós példák — a mikroökonómia most már élmény.',
                 'Interactive games, AI tutoring, and real-world examples — microeconomics as an experience.',
               )}
             </p>
-
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 to={session ? '/dashboard' : '/login'}
@@ -110,8 +144,7 @@ export default function HomePage() {
                 {t('Tudj meg többet', 'Learn more')}
               </a>
             </div>
-
-        </div>
+          </div>
         </div>
       </section>
 
