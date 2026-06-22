@@ -51,7 +51,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/" element={session ? <Navigate to="/dashboard" replace /> : <HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/dashboard" element={<ProtectedRoute><GamesPage /></ProtectedRoute>} />
       <Route path="/games" element={<Navigate to="/dashboard" replace />} />
