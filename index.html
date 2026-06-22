@@ -97,7 +97,68 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static content for crawlers and non-JS environments -->
+      <noscript>
+        <style>
+          .noscript-page { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; color: #1e293b; }
+          .noscript-page h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+          .noscript-page h2 { font-size: 1.5rem; font-weight: 800; margin-top: 2rem; margin-bottom: 0.75rem; }
+          .noscript-page h3 { font-size: 1.1rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+          .noscript-page p { line-height: 1.7; margin-bottom: 1rem; color: #475569; }
+          .noscript-page ul { padding-left: 1.5rem; line-height: 1.8; color: #475569; }
+          .noscript-page .tagline { color: #6366f1; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; }
+          .noscript-page a { color: #4f46e5; }
+          .noscript-page .badge { display: inline-block; background: #eef2ff; border: 1px solid #c7d2fe; color: #4338ca; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        </style>
+        <div class="noscript-page">
+          <p class="tagline">PLAY · LEARN · MASTER!</p>
+          <h1>Microeconomics Games</h1>
+          <p>AI-alapú interaktív mikroökonómia játékok és tanulási platform. Játssz, tanulj, vizsgázz magabiztosan.</p>
+          <p><strong>Szerző:</strong> Oroján Sándor, egyetemi oktató, Nyíregyházi Egyetem | <strong>Ingyenes</strong>, regisztráció nélkül játszható | Kétnyelvű: Magyar és English</p>
+
+          <h2>Mi a Microeconomics Games?</h2>
+          <p>A Microeconomics Games egy innovatív oktatási platform, amely a mikroökonómia tanulását interaktív, mesterséges intelligencia által támogatott játékok segítségével teszi élményszerűvé. A rendszer célja, hogy a hagyományos tananyagokat modern technológiai eszközökkel egészítse ki.</p>
+
+          <h2>Elérhető játékok</h2>
+
+          <h3>Monopólium (4 szint)</h3>
+          <ul>
+            <li><strong>1. szint – Monopólium alapjai:</strong> Vásárlói fizetési hajlandóság, optimális ár és mennyiség meghatározása, fogyasztói és termelői többlet, holtteher-veszteség</li>
+            <li><strong>2. szint – Árdiszkrimináció:</strong> Első-, másod- és harmadfokú árdiszkrimináció, tökéletes árdiszkrimináció</li>
+            <li><strong>3. szint – Oligopólium:</strong> Cournot-egyensúly, Bertrand-verseny, Stackelberg-modell, kartellek</li>
+            <li><strong>4. szint – Árszabályozás:</strong> Természetes monopólium, árplafon, árpadló, AC-alapú szabályozás</li>
+          </ul>
+
+          <h3>Kereslet és kínálat (4 szint)</h3>
+          <p>Piaci egyensúly, áreltolódások, fogyasztói és termelői döntések, adók és támogatások hatásai.</p>
+
+          <h3>Vállalati költségek (4 szint)</h3>
+          <p>Fix és változó költségek, határköltség, átlagköltség, hosszú távú költségfüggvények.</p>
+
+          <h3>Költségvetési korlát és fogyasztói választás (4 szint)</h3>
+          <p>Hasznosság maximalizálás, közömbösségi görbék, helyettesítési hatás, jövedelemhatás.</p>
+
+          <h3>Rugalmasság (4 szint)</h3>
+          <p>Kereslet és kínálat árrugalmassága, keresztrugalmasság, jövedelmi rugalmasság.</p>
+
+          <h2>Miért érdemes használni?</h2>
+          <ul>
+            <li><strong>Játékos tanulás (Productive failure):</strong> A játékok először rávezetnek a problémára, aztán leplezik le a megoldást. Mélyebb megértés, mint az előadásos oktatás.</li>
+            <li><strong>AI-tutor, aki mindig ráér:</strong> Szókratészi módszerrel kérdező Claude AI-coach minden szinten, magyarul és angolul, bármikor.</li>
+            <li><strong>Valós példák, valódi számok:</strong> EpiPen-botrány, EU gázár-plafon, App Store monopóliuma — determinisztikus közgazdasági motorból számolt pontos értékek.</li>
+          </ul>
+
+          <h2>Technológia</h2>
+          <p>Determinisztikus TypeScript közgazdasági motor (kereslet, MR, MC, DWL, CS, PS), Claude AI tutor (Anthropic), React + Vite frontend, Netlify + Supabase backend.</p>
+
+          <h2>Szerzőről</h2>
+          <p>Oroján Sándor a Nyíregyházi Egyetem oktatója, szenvedélye a mikro- és makroökonómia oktatása. A platformot szabad idejében fejlesztette.</p>
+
+          <p><a href="https://microeconomicsgames.com/login">Bejelentkezés / Játékok megnyitása →</a></p>
+        </div>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- Netlify Forms detector (SPA-hoz kötelező) -->
     <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
