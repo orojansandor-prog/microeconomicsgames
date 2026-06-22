@@ -6,10 +6,20 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "postbuild": "react-snap || echo 'react-snap prerender skipped'",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
     "test:ui": "vitest --ui"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "include": ["/", "/login"],
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "inlineCss": false,
+    "minifyHtml": false,
+    "fixWebpackChunksIssue": false,
+    "headless": true
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",
@@ -19,6 +29,7 @@
     "recharts": "^3.8.1"
   },
   "devDependencies": {
+    "react-snap": "^1.23.0",
     "@eslint/js": "^10.0.1",
     "@netlify/functions": "^5.3.0",
     "@tailwindcss/vite": "^4.3.1",
