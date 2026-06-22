@@ -50,7 +50,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
 
       {/* ── 1. HERO ──────────────────────────────────────────────── */}
@@ -150,18 +150,18 @@ export default function HomePage() {
 
       {/* ── 1b. STATS SÁV — hero alatt ── */}
       <div className="bg-indigo-950 border-t border-indigo-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-center gap-10 sm:gap-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-4 gap-2 sm:gap-0 sm:flex sm:items-center sm:justify-center sm:gap-16">
           {[
             { n: String(GAMES.filter(g => g.available).length), label: t('Játék', 'Games') },
             { n: '4', label: t('Szint', 'Levels') },
             { n: 'AI', label: t('Tutor', 'Tutor') },
             { n: '∞', label: t('Szcenárió', 'Scenarios') },
           ].map((item, i) => (
-            <div key={item.label} className="flex items-center gap-10 sm:gap-16">
-              {i > 0 && <div className="w-px h-8 bg-indigo-700" />}
-              <div className="text-center">
-                <div className="text-2xl font-black text-white">{item.n}</div>
-                <div className="text-xs text-indigo-400 mt-0.5 uppercase tracking-wide">{item.label}</div>
+            <div key={item.label} className="flex items-center sm:gap-16">
+              {i > 0 && <div className="hidden sm:block w-px h-8 bg-indigo-700 mr-16" />}
+              <div className="text-center w-full">
+                <div className="text-xl sm:text-2xl font-black text-white">{item.n}</div>
+                <div className="text-[10px] sm:text-xs text-indigo-400 mt-0.5 uppercase tracking-wide">{item.label}</div>
               </div>
             </div>
           ))}
