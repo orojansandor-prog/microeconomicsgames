@@ -71,7 +71,7 @@ export default function CostsChart({
           <Legend wrapperStyle={{ fontSize: 12 }} />
           <Line dataKey="MC" name="MC (határköltség)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: '#ef4444' }} />
           <ReferenceLine x={resolvedQMinMC} stroke="#ef4444" strokeDasharray="4 2"
-            label={{ value: `min MC=${minMCVal}`, fill: '#ef4444', fontSize: 10, position: 'top' }} />
+            label={{ value: `min MC=${minMCVal}`, fill: '#ef4444', fontSize: 12, position: 'top' }} />
         </LineChart>
       </ResponsiveContainer>
     )
@@ -93,17 +93,17 @@ export default function CostsChart({
           {showReveal && (
             <>
               <ReferenceLine x={resolvedQMinAVC} stroke="#10b981" strokeDasharray="3 2"
-                label={{ value: `min AVC=${minAVCVal}`, fill: '#10b981', fontSize: 10, position: 'insideTopRight' }} />
+                label={{ value: `min AVC=${minAVCVal}`, fill: '#10b981', fontSize: 12, position: 'insideTopRight' }} />
               <ReferenceLine x={resolvedQMinATC} stroke="#4f46e5" strokeDasharray="3 2"
-                label={{ value: `min ATC=${minATCVal}`, fill: '#4f46e5', fontSize: 10, position: 'insideTopLeft' }} />
+                label={{ value: `min ATC=${minATCVal}`, fill: '#4f46e5', fontSize: 12, position: 'insideTopLeft' }} />
             </>
           )}
           {!showReveal && (
             <>
               <ReferenceLine x={resolvedQMinAVC} stroke="#10b981" strokeDasharray="3 2"
-                label={{ value: 'min AVC', fill: '#10b981', fontSize: 10, position: 'insideTopRight' }} />
+                label={{ value: 'min AVC', fill: '#10b981', fontSize: 12, position: 'insideTopRight' }} />
               <ReferenceLine x={resolvedQMinATC} stroke="#4f46e5" strokeDasharray="3 2"
-                label={{ value: 'min ATC', fill: '#4f46e5', fontSize: 10, position: 'insideTopLeft' }} />
+                label={{ value: 'min ATC', fill: '#4f46e5', fontSize: 12, position: 'insideTopLeft' }} />
             </>
           )}
         </LineChart>

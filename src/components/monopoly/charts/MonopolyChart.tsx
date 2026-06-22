@@ -66,7 +66,7 @@ export default function MonopolyChart({
   return (
     <div className="w-full">
       <ResponsiveContainer width="100%" height={300}>
-        <ComposedChart data={data} margin={{ top: 10, right: 30, bottom: 30, left: 20 }}>
+        <ComposedChart data={data} margin={{ top: 10, right: 60, bottom: 30, left: 20 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
 
           <XAxis dataKey="Q" type="number" domain={[0, 'dataMax']}>
@@ -132,20 +132,20 @@ export default function MonopolyChart({
           {showMonopoly && (
             <>
               <ReferenceLine x={Q_m} stroke="#6366f1" strokeDasharray="4 4"
-                label={{ value: `Q*=${Q_m.toFixed(0)}`, position: 'top', fontSize: 10, fill: '#6366f1' }} />
+                label={{ value: `Q*=${Q_m.toFixed(0)}`, position: 'top', fontSize: 12, fill: '#6366f1' }} />
               <ReferenceLine y={P_m} stroke="#6366f1" strokeDasharray="4 4"
-                label={{ value: `P*=${P_m.toFixed(0)}`, position: 'right', fontSize: 10, fill: '#6366f1' }} />
+                label={{ value: `P*=${P_m.toFixed(0)}`, position: 'right', fontSize: 12, fill: '#6366f1' }} />
             </>
           )}
 
           {showCompetitive && (
             <ReferenceLine x={Q_c} stroke="#22c55e" strokeDasharray="4 4"
-              label={{ value: `Qc=${Q_c.toFixed(0)}`, position: 'top', fontSize: 10, fill: '#22c55e' }} />
+              label={{ value: `Qc=${Q_c.toFixed(0)}`, position: 'top', fontSize: 12, fill: '#22c55e' }} />
           )}
 
           {playerPrice !== undefined && (
             <ReferenceLine y={playerPrice} stroke="#f59e0b" strokeWidth={2}
-              label={{ value: `${t('Te', 'You')}: ${playerPrice}`, position: 'right', fontSize: 10, fill: '#f59e0b' }} />
+              label={{ value: `${t('Te', 'You')}: ${playerPrice}`, position: 'right', fontSize: 12, fill: '#f59e0b' }} />
           )}
         </ComposedChart>
       </ResponsiveContainer>

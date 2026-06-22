@@ -57,7 +57,7 @@ export default function ElasticityChart(props: Props) {
               }
             />
             <ReferenceLine x={1} stroke="#ef4444" strokeWidth={2} strokeDasharray="4 4"
-              label={{ value: t('Rugalmassági határ', 'Elasticity threshold'), position: 'top', fontSize: 10, fill: '#ef4444' }} />
+              label={{ value: t('Rugalmassági határ', 'Elasticity threshold'), position: 'top', fontSize: 12, fill: '#ef4444' }} />
             <Bar dataKey="absPED" name="|PED|" radius={[0, 4, 4, 0]}>
               {data.map((entry, index) => (
                 <Cell key={index} fill={entry.elastic ? '#ef4444' : '#22c55e'} />
@@ -92,7 +92,7 @@ export default function ElasticityChart(props: Props) {
     return (
       <div className="w-full">
         <ResponsiveContainer width="100%" height={280}>
-          <BarChart data={data} margin={{ top: 10, right: 30, bottom: 10, left: 20 }}>
+          <BarChart data={data} margin={{ top: 10, right: 60, bottom: 10, left: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
             <XAxis dataKey="name" tick={{ fontSize: 18 }} />
             <YAxis domain={[0, 14]} />
@@ -112,7 +112,7 @@ export default function ElasticityChart(props: Props) {
               <Bar dataKey="longEst" name={t('Hosszú becslés', 'Long est.')} fill="#86efac" radius={[4, 4, 0, 0]} />
             )}
             <ReferenceLine y={1} stroke="#f97316" strokeWidth={2} strokeDasharray="4 4"
-              label={{ value: 'PES = 1', position: 'right', fontSize: 10, fill: '#f97316' }} />
+              label={{ value: 'PES = 1', position: 'right', fontSize: 12, fill: '#f97316' }} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -197,7 +197,7 @@ export default function ElasticityChart(props: Props) {
             />
             <ReferenceLine x={0} stroke="#94a3b8" strokeWidth={1} />
             <ReferenceLine x={1} stroke="#f97316" strokeWidth={2} strokeDasharray="4 4"
-              label={{ value: 'YED = 1', position: 'top', fontSize: 10, fill: '#f97316' }} />
+              label={{ value: 'YED = 1', position: 'top', fontSize: 12, fill: '#f97316' }} />
             <Bar dataKey="yed" name="YED" radius={[0, 4, 4, 0]}>
               {data.map((entry, index) => (
                 <Cell key={index} fill={colorMap[entry.type]} />

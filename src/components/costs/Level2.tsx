@@ -69,7 +69,7 @@ export default function Level2() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-10 shadow-sm">
+      <div className="bg-white border-b border-slate-200 px-3 sm:px-6 py-4 sticky top-0 z-10 shadow-sm">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 text-sm text-slate-400 mb-0.5">
@@ -91,7 +91,7 @@ export default function Level2() {
             <div className="flex items-center gap-1">
               {[1,2,3,4].map(n => (
                 <Link key={n} to={`/games/costs/level/${n}`}
-                  className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors ${n === 2 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white text-slate-500 border border-slate-200 hover:border-indigo-300'}`}>
+                  className={`w-10 h-10 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors ${n === 2 ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white text-slate-500 border border-slate-200 hover:border-indigo-300'}`}>
                   {n}
                 </Link>
               ))}
@@ -100,7 +100,7 @@ export default function Level2() {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-8 space-y-6">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6">
 
         <NotationBox notations={[
           { symbol: 'TC', full: 'Teljes költség (Total Cost)', formula: 'TC = FC + VC', altSymbols: 'TK, összköltség' },

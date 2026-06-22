@@ -115,7 +115,7 @@ export default function SupplyDemandChart({
   return (
     <div className="w-full">
       <ResponsiveContainer width="100%" height={280}>
-        <ComposedChart data={data} margin={{ top: 10, right: 30, bottom: 30, left: 20 }}>
+        <ComposedChart data={data} margin={{ top: 10, right: 60, bottom: 30, left: 20 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis dataKey="Q" type="number" domain={[0, parseFloat(qMax.toFixed(1))]}>
             <Label
@@ -181,40 +181,40 @@ export default function SupplyDemandChart({
           {shouldShowEq && (
             <>
               <ReferenceLine x={parseFloat(Qstar.toFixed(1))} stroke="#6366f1" strokeDasharray="4 4"
-                label={{ value: `Q*=${Qstar.toFixed(0)}`, position: 'top', fontSize: 10, fill: '#6366f1' }} />
+                label={{ value: `Q*=${Qstar.toFixed(0)}`, position: 'top', fontSize: 12, fill: '#6366f1' }} />
               <ReferenceLine y={parseFloat(Pstar.toFixed(1))} stroke="#6366f1" strokeDasharray="4 4"
-                label={{ value: `P*=${Pstar.toFixed(0)}`, position: 'right', fontSize: 10, fill: '#6366f1' }} />
+                label={{ value: `P*=${Pstar.toFixed(0)}`, position: 'right', fontSize: 12, fill: '#6366f1' }} />
             </>
           )}
 
           {/* Player guides — amber */}
           {playerPrice !== undefined && (
             <ReferenceLine y={playerPrice} stroke="#f59e0b" strokeWidth={2}
-              label={{ value: `${t('Te', 'You')}: P=${playerPrice}`, position: 'right', fontSize: 10, fill: '#f59e0b' }} />
+              label={{ value: `${t('Te', 'You')}: P=${playerPrice}`, position: 'right', fontSize: 12, fill: '#f59e0b' }} />
           )}
           {playerQty !== undefined && (
             <ReferenceLine x={playerQty} stroke="#f59e0b" strokeWidth={2} strokeDasharray="4 4"
-              label={{ value: `Q=${playerQty}`, position: 'top', fontSize: 10, fill: '#f59e0b' }} />
+              label={{ value: `Q=${playerQty}`, position: 'top', fontSize: 12, fill: '#f59e0b' }} />
           )}
 
           {/* Interventions */}
           {priceCeiling !== undefined && (
             <ReferenceLine y={priceCeiling} stroke="#ef4444" strokeWidth={2}
-              label={{ value: t('Ársapka', 'Ceiling'), position: 'left', fontSize: 10, fill: '#ef4444' }} />
+              label={{ value: t('Ársapka', 'Ceiling'), position: 'left', fontSize: 12, fill: '#ef4444' }} />
           )}
           {priceFloor !== undefined && (
             <ReferenceLine y={priceFloor} stroke="#f97316" strokeWidth={2}
-              label={{ value: t('Árpadló', 'Floor'), position: 'left', fontSize: 10, fill: '#f97316' }} />
+              label={{ value: t('Árpadló', 'Floor'), position: 'left', fontSize: 12, fill: '#f97316' }} />
           )}
 
           {/* Tax lines */}
           {taxBuyerPrice !== undefined && (
             <ReferenceLine y={taxBuyerPrice} stroke="#8b5cf6" strokeWidth={1.5} strokeDasharray="5 3"
-              label={{ value: `Pb=${taxBuyerPrice}`, position: 'right', fontSize: 10, fill: '#8b5cf6' }} />
+              label={{ value: `Pb=${taxBuyerPrice}`, position: 'right', fontSize: 12, fill: '#8b5cf6' }} />
           )}
           {taxSellerPrice !== undefined && (
             <ReferenceLine y={taxSellerPrice} stroke="#06b6d4" strokeWidth={1.5} strokeDasharray="5 3"
-              label={{ value: `Ps=${taxSellerPrice}`, position: 'right', fontSize: 10, fill: '#06b6d4' }} />
+              label={{ value: `Ps=${taxSellerPrice}`, position: 'right', fontSize: 12, fill: '#06b6d4' }} />
           )}
         </ComposedChart>
       </ResponsiveContainer>

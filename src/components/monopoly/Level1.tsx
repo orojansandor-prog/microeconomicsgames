@@ -123,7 +123,7 @@ export default function Level1() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Sticky header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-10 shadow-sm">
+      <div className="bg-white border-b border-slate-200 px-3 sm:px-6 py-4 sticky top-0 z-10 shadow-sm">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 text-sm text-slate-400 mb-0.5">
@@ -145,16 +145,16 @@ export default function Level1() {
               />
             )}
             <div className="flex items-center gap-1">
-              <Link to="/games/monopoly/level/1" className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-indigo-600 text-white shadow-sm">1</Link>
-              <Link to="/games/monopoly/level/2" className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-white text-slate-500 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600">2</Link>
-              <Link to="/games/monopoly/level/3" className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-white text-slate-500 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600">3</Link>
-              <Link to="/games/monopoly/level/4" className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-white text-slate-500 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600">4</Link>
+              <Link to="/games/monopoly/level/1" className="w-10 h-10 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-indigo-600 text-white shadow-sm">1</Link>
+              <Link to="/games/monopoly/level/2" className="w-10 h-10 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-white text-slate-500 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600">2</Link>
+              <Link to="/games/monopoly/level/3" className="w-10 h-10 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-white text-slate-500 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600">3</Link>
+              <Link to="/games/monopoly/level/4" className="w-10 h-10 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors bg-white text-slate-500 border border-slate-200 hover:border-indigo-300 hover:text-indigo-600">4</Link>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 py-8 space-y-6">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6">
 
         <NotationBox notations={[
           { symbol: 'P', full: 'Ár (Price)', note: 'a termék piaci ára' },
@@ -242,7 +242,7 @@ export default function Level1() {
               <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">
                 {t('Az 5 vásárlód és fizetési hajlandóságuk', 'Your 5 buyers and their willingness to pay')}
               </h2>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {sc.buyers.map(b => {
                   const willBuy = b.wtp >= price
                   return (

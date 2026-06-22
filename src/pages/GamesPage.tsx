@@ -288,8 +288,8 @@ export default function GamesPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex">
 
-      {/* ── Sidebar ──────────────────────────────────────────────────────── */}
-      <aside className="w-60 shrink-0 bg-white border-r border-slate-200 flex flex-col min-h-screen sticky top-0 h-screen">
+      {/* ── Sidebar (desktop only) ───────────────────────────────────────── */}
+      <aside className="hidden md:flex w-60 shrink-0 bg-white border-r border-slate-200 flex-col min-h-screen sticky top-0 h-screen">
         {/* Logo */}
         <div className="px-4 py-3 border-b border-slate-100">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
@@ -348,11 +348,29 @@ export default function GamesPage() {
       </aside>
 
       {/* ── Main content ─────────────────────────────────────────────────── */}
-      <main className="flex-1 px-8 py-8 max-w-3xl">
+      <main className="flex-1 px-4 sm:px-8 py-6 sm:py-8 max-w-3xl pb-24 md:pb-8">
         {panel === 'games'    && <GameCards t={t} />}
         {panel === 'rankings' && <RankingsPanel t={t} />}
         {panel === 'myscores' && <MyScoresPanel t={t} />}
       </main>
+
+      {/* ── Mobile bottom nav ────────────────────────────────────────────── */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex z-50 shadow-lg">
+        {NAV.map(item => (
+          <button
+            key={item.id}
+            onClick={() => setPanel(item.id)}
+            className={`flex-1 flex flex-col items-center justify-center gap-1 py-3 text-xs font-semibold transition-colors ${
+              panel === item.id
+                ? 'text-indigo-600'
+                : 'text-slate-400'
+            }`}
+          >
+            <span className="text-xl">{item.icon}</span>
+            <span className="leading-none">{t(item.labelHu, item.labelEn).split(' ')[0]}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   )
 }

@@ -18,11 +18,11 @@ export default function Navbar() {
     <div className={`flex gap-1 bg-slate-100 rounded-lg p-1 text-${size}`}>
       <button
         onClick={() => setLang('hu')}
-        className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${lang === 'hu' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
+        className={`px-2.5 py-2 rounded-md font-semibold transition-colors ${lang === 'hu' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
       >HU</button>
       <button
         onClick={() => setLang('en')}
-        className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${lang === 'en' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
+        className={`px-2.5 py-2 rounded-md font-semibold transition-colors ${lang === 'en' ? 'bg-white shadow-sm text-slate-900' : 'text-slate-400'}`}
       >EN</button>
     </div>
   )
@@ -57,7 +57,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center gap-1.5 w-9 h-9 rounded-lg hover:bg-slate-100 transition-colors"
+          className="md:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-lg hover:bg-slate-100 transition-colors"
           onClick={() => setMenuOpen(o => !o)}
           aria-label="Menü"
         >

@@ -114,7 +114,7 @@ export default function BudgetChart({
               value={`${t('Mennyiség:', 'Quantity:')} ${params.labelX} (egység)`}
               offset={-20}
               position="insideBottom"
-              style={{ fontSize: 10, fill: '#94a3b8' }}
+              style={{ fontSize: 12, fill: '#94a3b8' }}
             />
           </XAxis>
 
@@ -129,7 +129,7 @@ export default function BudgetChart({
               angle={-90}
               position="insideLeft"
               offset={12}
-              style={{ fontSize: 10, fill: '#94a3b8' }}
+              style={{ fontSize: 12, fill: '#94a3b8' }}
             />
           </YAxis>
 
@@ -142,7 +142,7 @@ export default function BudgetChart({
             labelFormatter={v => `${params.labelX}: ${Number(v).toFixed(2)}`}
           />
 
-          {showLegend && <Legend verticalAlign="top" wrapperStyle={{ fontSize: 10 }} />}
+          {showLegend && <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} />}
 
           {/* Budget line-ok */}
           {lines.map((bl, i) => (
