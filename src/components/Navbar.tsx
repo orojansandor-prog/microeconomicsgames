@@ -35,7 +35,7 @@ export default function Navbar() {
           <img src="/microeconomicsgameslogo1.png" alt="MicroeconomicsGames" className="h-12 w-auto" />
           <div className="hidden sm:flex flex-col justify-center">
             <span className="font-black text-sm tracking-widest text-slate-800 uppercase leading-tight">PLAY · LEARN · MASTER!</span>
-            <span className="text-[10px] text-slate-400 font-medium leading-tight mt-0.5">AI powered microeconomics games · by Sándor Oroján, professor of Nyíregyháza University</span>
+            <span className="text-[10px] text-slate-400 font-medium leading-tight mt-0.5">AI powered microeconomics games · by <a href="https://orojansandor.hu" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 transition-colors">Sándor Oroján</a>, professor of Nyíregyháza University</span>
           </div>
         </Link>
 
