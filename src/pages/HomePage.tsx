@@ -215,7 +215,7 @@ export default function HomePage() {
                 alt="Oroján Sándor"
                 className="w-40 h-40 mx-auto rounded-full object-cover shadow-lg mb-4 border-2 border-indigo-100" style={{objectPosition: "center 20%"}}
               />
-              <div className="font-bold text-slate-900 text-lg">Oroján Sándor</div>
+              <a href="https://orojansandor.hu" target="_blank" rel="noopener noreferrer" className="font-bold text-slate-900 text-lg hover:text-indigo-600 transition-colors">Oroján Sándor</a>
               <div className="text-sm text-slate-500 mt-1">{t('Egyetemi oktató', 'University Lecturer')}</div>
               <div className="text-xs text-indigo-600 mt-1 font-semibold">{t('Nyíregyházi Egyetem', 'University of Nyíregyháza')}</div>
               <div className="mt-4 pt-4 border-t border-indigo-100 space-y-2">
@@ -613,10 +613,7 @@ export default function HomePage() {
             <span className="font-bold text-white text-sm">MicroeconomicsGames</span>
           </div>
           <p className="mb-1">
-            {t(
-              '© 2025 Oroján Sándor · Nyíregyházi Egyetem · Minden jog fenntartva.',
-              '© 2025 Oroján Sándor · University of Nyíregyháza · All rights reserved.',
-            )}
+            © 2025 <a href="https://orojansandor.hu" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400 transition-colors">Oroján Sándor</a> · {t('Nyíregyházi Egyetem · Minden jog fenntartva.', 'University of Nyíregyháza · All rights reserved.')}
           </p>
           <p className="text-slate-600">
             {t('Powered by Claude AI · Determinisztikus közgazdasági motor', 'Powered by Claude AI · Deterministic economic engine')}
