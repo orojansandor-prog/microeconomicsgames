@@ -322,7 +322,7 @@ export default function GamesPage() {
             <img src="/microeconomicsgameslogo1.png" alt="MicroeconomicsGames" className="h-10 w-auto shrink-0" />
             <div className="flex flex-col justify-center min-w-0">
               <span className="font-black text-[10px] tracking-widest text-slate-800 uppercase leading-tight">PLAY · LEARN · MASTER!</span>
-              <span className="text-[8px] text-slate-400 font-medium leading-tight mt-0.5 truncate">AI powered · by Sándor Oroján</span>
+              <span className="text-[8px] text-slate-400 font-medium leading-tight mt-0.5 truncate">AI powered · by <a href="https://orojansandor.hu" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 transition-colors">Sándor Oroján</a></span>
             </div>
           </a>
         </div>
