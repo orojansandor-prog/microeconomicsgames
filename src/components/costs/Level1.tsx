@@ -210,7 +210,7 @@ export default function Level1() {
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">
               <h3 className="font-semibold text-slate-900 mb-3">
-                {t('TC becslés:', 'TC estimate:')} Q = {sliderQ} {t(sc.productHu, sc.productEn)}
+                {t(`Becsüld meg a teljes költséget (TC = FC + VC), ha Q = ${sliderQ} ${sc.productHu}:`, `Estimate total cost (TC = FC + VC) at Q = ${sliderQ} ${sc.productEn}:`)}
               </h3>
               <input type="range" min={0} max={10} value={sliderQ}
                 onChange={e => setSliderQ(Number(e.target.value))}

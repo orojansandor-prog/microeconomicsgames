@@ -131,6 +131,12 @@ export default function Level4() {
             <div className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl border border-violet-100 p-6">
               <div className="text-2xl mb-2">{sc.icon}</div>
               <h2 className="font-bold text-slate-900 mb-1">{t('Versenypiac: ár-elfogadó vagy', 'Competitive market: you are a price-taker')}</h2>
+              <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-2">
+                💡 {t(
+                  `Szabály: állítsd a csúszkát addig, amíg MC ≈ P. Ha MC < P, termelj tovább — minden egység profitot hoz. Ha MC > P, az utolsó egység veszteséges volt!`,
+                  `Rule: move the slider until MC ≈ P. If MC < P, keep producing — each unit adds profit. If MC > P, the last unit was a loss!`
+                )}
+              </p>
               <p className="text-slate-600 text-sm leading-relaxed">
                 {t(
                   `A piaci ár P = ${MARKET_PRICE} Ft. Ha ennél többet kérsz, senki sem vesz tőled. Ha kevesebbet, veszítesz. Döntsd el: hány ${sc.productHu} legyen?`,

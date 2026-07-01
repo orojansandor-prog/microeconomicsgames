@@ -170,6 +170,16 @@ export default function BCLevel2() {
         {/* ── TRY PHASE ── */}
         {phase === 'try' && (
           <>
+            {/* Instrukció */}
+            <div className="bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-3">
+              <p className="text-sm font-semibold text-indigo-900">
+                👆 {t(
+                  'Kattints a kosarakra a legjobbtól a legrosszabbig sorrendben — a rangsor automatikusan felépül! Kattints újra egy kosárra a kijelölés törléséhez.',
+                  'Click baskets in order from best to worst — the ranking builds automatically! Click again to deselect.'
+                )}
+              </p>
+            </div>
+
             {/* Kosarak megjelenítése */}
             <div className="grid grid-cols-2 gap-3">
               {baskets.map((b, i) => {

@@ -184,6 +184,16 @@ export default function ElasticityLevel4() {
               </div>
             </div>
 
+            {/* YED útmutató */}
+            <div className="bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-3">
+              <p className="text-xs font-semibold text-indigo-900">
+                💡 {t(
+                  'Nő ↑ = normál/luxus (YED > 0) · Csökken ↓ = inferior (YED < 0) · Nem változik → = semleges (YED ≈ 0)',
+                  'Rises ↑ = normal/luxury (YED > 0) · Falls ↓ = inferior (YED < 0) · No change → = neutral (YED ≈ 0)'
+                )}
+              </p>
+            </div>
+
             {/* Progress */}
             <div className="flex items-center justify-between">
               <h2 className="font-bold text-slate-800">{t('Jósold meg a kereslet irányát:', 'Predict the direction of demand:')}</h2>

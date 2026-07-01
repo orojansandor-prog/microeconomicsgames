@@ -205,6 +205,16 @@ export default function Level2() {
               </div>
             </div>
 
+            {/* Cél doboz */}
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+              <p className="text-sm font-semibold text-amber-900">
+                🎯 {t(
+                  'Célod: a két piac összesített profitját (π₁ + π₂) maximalizálni. Mindkét piacon alkalmazd az MR = MC feltételt külön-külön!',
+                  'Goal: maximize total profit (π₁ + π₂) across both markets. Apply MR = MC separately in each market!'
+                )}
+              </p>
+            </div>
+
             {/* Két csúszka */}
             <div className="grid sm:grid-cols-2 gap-4">
               {/* Piac 1 */}

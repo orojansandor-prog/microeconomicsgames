@@ -220,6 +220,9 @@ export default function BCLevel4() {
               <h2 className="font-bold text-slate-900">
                 🧠 {t('Szerinted melyik hatás a nagyobb?', 'Which effect do you think is larger?')}
               </h2>
+              <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                ✅ {t('Válassz egy lehetőséget, majd kattints a megoldás gombra!', 'Select one option, then click the solution button!')}
+              </p>
               <p className="text-sm text-slate-500">
                 {t(
                   `A(z) ${p.labelX} ${p.Px} Ft → ${newPx} Ft. Két hatás csökkenti a(z) ${p.labelX} fogyasztást: (1) Helyettesítési hatás — a(z) ${p.labelX} relatíve drágább lett a(z) ${p.labelY}-hoz képest. (2) Jövedelemhatás — az áremelés miatt "szegényebb" lettél, kevesebbet engedhetsz meg magadnak mindenből.`,
@@ -250,9 +253,12 @@ export default function BCLevel4() {
 
             <button
               onClick={handleReveal}
-              className="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-colors text-lg shadow-md"
+              disabled={!guessMode}
+              className="w-full py-4 bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors text-lg shadow-md"
             >
-              {t('Megmutatom a Slutsky-felbontást! →', 'Show me the Slutsky decomposition! →')}
+              {guessMode
+                ? t('Megmutatom a Slutsky-felbontást! →', 'Show me the Slutsky decomposition! →')
+                : t('Először válassz egy lehetőséget fentebb!', 'First select an option above!')}
             </button>
           </>
         )}

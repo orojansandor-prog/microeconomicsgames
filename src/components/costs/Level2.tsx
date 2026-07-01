@@ -124,6 +124,9 @@ export default function Level2() {
                   'You have the TC schedule. Now compute MC (marginal cost = ΔTC/ΔQ) for each unit!'
                 )}
               </p>
+              <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-3">
+                💡 {t('Pl. Q=1-nél: MC = TC(1) − TC(0)', 'E.g. at Q=1: MC = TC(1) − TC(0)')}
+              </p>
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">

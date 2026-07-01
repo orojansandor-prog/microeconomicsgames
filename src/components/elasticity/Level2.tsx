@@ -183,7 +183,8 @@ export default function ElasticityLevel2() {
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">PES = ΔQs% / ΔP%</span>
                     <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">{t('PES=0: fix kapacitás', 'PES=0: fixed capacity')}</span>
-                    <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">{t('PES=10+: könnyen skálázható', 'PES=10+: easily scalable')}</span>
+                    <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">{t('PES=1: egységrugalmas', 'PES=1: unit elastic')}</span>
+                    <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">{t('PES=5+: nagyon rugalmas (hosszú táv)', 'PES=5+: very elastic (long run)')}</span>
                   </div>
                 </div>
               </div>

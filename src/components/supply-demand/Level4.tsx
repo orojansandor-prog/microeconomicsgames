@@ -183,6 +183,12 @@ export default function SDLevel4() {
 
             {/* Tax slider */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+              <p className="text-sm text-slate-600 mb-4">
+                {t(
+                  'Kísérletezz az adó mértékével! Figyeld, ahogy az adóbevétel és a DWL változik. Állítsd be azt az adókulcsot, amellyel szerinted a legjobb egyensúlyt éred el adóbevétel és holtteher között!',
+                  'Experiment with the tax rate! Watch how tax revenue and DWL change. Set the tax rate that you think achieves the best balance between revenue and deadweight loss!'
+                )}
+              </p>
               <div className="flex items-center justify-between mb-3">
                 <h2 className="font-bold text-slate-800">{t('Adó mértéke (t):', 'Tax rate (t):')} </h2>
                 <div className="text-right">
