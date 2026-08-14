@@ -148,6 +148,29 @@ export default function BCLevel3() {
                   `You have ${p.I.toLocaleString()} Ft. ${p.labelX} ${p.Px} Ft, ${p.labelY} ${p.Py} Ft. You must spend exactly your budget. At which X-Y combination is your utility highest?`,
                 )}
               </p>
+              <div className="mt-3 space-y-1.5 text-sm bg-white/70 border border-pink-100 rounded-xl p-3">
+                <p className="text-slate-700">
+                  <span className="font-bold">🎭 {t('Szereped', 'Your role')}:</span>{' '}
+                  {t(
+                    `Te vagy egy személyi pénzügyi tanácsadó, akire az ügyfeled rábízta a teljes havi keretét: ${p.I.toLocaleString()} Ft-ot kell ${p.labelX} és ${p.labelY} között elosztanod.`,
+                    `You are a personal finance advisor entrusted with a client's entire monthly budget: you must split ${p.I.toLocaleString()} Ft between ${p.labelX} and ${p.labelY}.`,
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">🎯 {t('Feladatod', 'Your task')}:</span>{' '}
+                  {t(
+                    'Húzd a csúszkát a budget line mentén, és találd meg azt a pontot, ahol a hasznosság (U) a lehető legnagyobb — az MRS-mutató segít tájékozódni.',
+                    'Drag the slider along the budget line and find the point where utility (U) is highest — the MRS gauge helps you navigate.',
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">⚠️ {t('A tét', 'The stakes')}:</span>{' '}
+                  {t(
+                    'Minden félrecsúszott egység boldogságot éget el: ugyanannyi pénzért kevesebb elégedettség jut az ügyfelednek — és a tanácsadói hírneved is a tét.',
+                    'Every misplaced unit burns happiness: the same money buys your client less satisfaction — and your advisory reputation is on the line.',
+                  )}
+                </p>
+              </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <span className="text-xs bg-white border border-pink-200 text-pink-700 px-2 py-1 rounded-lg font-semibold">I = {p.I.toLocaleString()} Ft</span>
                 <span className="text-xs bg-white border border-pink-200 text-pink-700 px-2 py-1 rounded-lg font-semibold">Px = {p.Px} Ft</span>
@@ -253,6 +276,34 @@ export default function BCLevel3() {
               <p className="mt-3 text-xs opacity-80">
                 {t(`Optimum: X*=${opt.X_star} | Te: X=${playerX}`, `Optimum: X*=${opt.X_star} | You: X=${playerX}`)}
               </p>
+              {(() => {
+                const frac = ap / 500
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel =
+                  frac >= 0.9 ? t('Arany fokozat', 'Gold medal')
+                  : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal')
+                  : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal')
+                  : t('Gyakorolj még!', 'Keep practicing!')
+                return (
+                  <div className="mt-3 flex items-center gap-3 bg-white/20 rounded-xl p-3">
+                    <span className="text-3xl">{medal}</span>
+                    <div>
+                      <div className="font-black text-sm">{medalLabel}</div>
+                      <div className="text-xs opacity-90 mt-0.5">
+                        {isOptimal
+                          ? t(
+                              `Mesteri tanácsadás! Pontosan az optimumot találtad el — U=${playerU.toFixed(2)}, ennél boldogabb hónap nem létezik ebből a pénzből.`,
+                              `Masterful advising! You hit the optimum exactly — U=${playerU.toFixed(2)}, no happier month is possible from this money.`,
+                            )
+                          : t(
+                              `A te kosarad U=${playerU.toFixed(2)}, az optimális U*=${opt.U_star.toFixed(2)} — a lehetséges boldogság ${Math.round((playerU / opt.U_star) * 100)}%-át hoztad ki ugyanannyi pénzből.`,
+                              `Your basket gives U=${playerU.toFixed(2)}, the optimum U*=${opt.U_star.toFixed(2)} — you captured ${Math.round((playerU / opt.U_star) * 100)}% of the possible happiness from the same money.`,
+                            )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Eredmény */}

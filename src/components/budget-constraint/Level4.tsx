@@ -153,6 +153,29 @@ export default function BCLevel4() {
                   `Previously ${p.labelX} was ${p.Px} Ft, ${p.labelY} ${p.Py} Ft, income ${p.I.toLocaleString()} Ft. Your optimum: X*=${orig.X_star} ${p.labelX}, Y*=${orig.Y_star} ${p.labelY}. Now ${p.labelX}'s price changes — what will the new optimum be?`,
                 )}
               </p>
+              <div className="mt-3 space-y-1.5 text-sm bg-white/70 border border-orange-100 rounded-xl p-3">
+                <p className="text-slate-700">
+                  <span className="font-bold">🎭 {t('Szereped', 'Your role')}:</span>{' '}
+                  {t(
+                    `Te vagy a gazdasági elemző, akitől a szerkesztőség másnap reggelre kér prognózist: hogyan reagálnak a fogyasztók a(z) ${p.labelX} drágulására?`,
+                    `You are the economic analyst whose newsroom needs a forecast by morning: how will consumers react to the ${p.labelX} price hike?`,
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">🎯 {t('Feladatod', 'Your task')}:</span>{' '}
+                  {t(
+                    'Állítsd be a csúszkán az új árat, majd a három gomb egyikével tippeld meg, melyik hatás lesz a nagyobb — helyettesítési vagy jövedelmi.',
+                    'Set the new price on the slider, then use one of the three buttons to guess which effect will dominate — substitution or income.',
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">⚠️ {t('A tét', 'The stakes')}:</span>{' '}
+                  {t(
+                    'Ha az elemzésed félremegy, a címlapon landol egy rossz prognózis: az intuíció itt gyakran csal, és a piac nem kegyelmez a tévedőknek.',
+                    'If your analysis misses, a wrong forecast hits the front page: intuition often fails here, and the market shows no mercy to the mistaken.',
+                  )}
+                </p>
+              </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <span className="text-xs bg-white border border-orange-200 text-orange-700 px-2 py-1 rounded-lg font-semibold">I = {p.I.toLocaleString()} Ft (változatlan)</span>
                 <span className="text-xs bg-white border border-orange-200 text-orange-700 px-2 py-1 rounded-lg font-semibold">Py = {p.Py} Ft (változatlan)</span>
@@ -284,6 +307,34 @@ export default function BCLevel4() {
               <p className="mt-3 text-xs opacity-80">
                 {t('Helyes tipp = +500 pt | Megpróbálta = +100 pt', 'Correct guess = +500 pts | Attempted = +100 pts')}
               </p>
+              {(() => {
+                const frac = ap / 500
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel =
+                  frac >= 0.9 ? t('Arany fokozat', 'Gold medal')
+                  : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal')
+                  : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal')
+                  : t('Gyakorolj még!', 'Keep practicing!')
+                return (
+                  <div className="mt-3 flex items-center gap-3 bg-white/20 rounded-xl p-3">
+                    <span className="text-3xl">{medal}</span>
+                    <div>
+                      <div className="font-black text-sm">{medalLabel}</div>
+                      <div className="text-xs opacity-90 mt-0.5">
+                        {ap === 500
+                          ? t(
+                              'Az elemzői ösztönöd pontosan eltalálta a Slutsky-felbontást — a prognózisod címlapra kerülhet!',
+                              'Your analyst instinct nailed the Slutsky decomposition — your forecast is front-page material!',
+                            )
+                          : t(
+                              'Az intuíciód mást súgott, mint a matek — lentebb a felbontás megmutatja, melyik hatás nyert valójában.',
+                              'Your intuition disagreed with the math — the decomposition below shows which effect actually won.',
+                            )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Slutsky eredmény */}

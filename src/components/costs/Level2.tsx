@@ -118,12 +118,20 @@ export default function Level2() {
             <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl border border-red-100 p-6">
               <div className="text-2xl mb-2">{sc.icon}</div>
               <h2 className="font-bold text-slate-900 mb-1">{t(sc.titleHu, sc.titleEn)}</h2>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                {t(
-                  'Megvan a TC táblázat. Most számítsd ki az MC-t (határköltség = ΔTC/ΔQ) minden egységhez!',
-                  'You have the TC schedule. Now compute MC (marginal cost = ΔTC/ΔQ) for each unit!'
-                )}
-              </p>
+              <div className="bg-white/70 rounded-xl p-3 text-sm space-y-2">
+                <p className="text-slate-700">
+                  🎭 <span className="font-semibold">{t('Szereped:', 'Your role:')}</span>{' '}
+                  {t(`Te vagy az üzemvezető. A tulajdonos reggel az asztalodra csapta a TC táblázatot: „Mondd meg pontosan, mennyibe kerül NEKÜNK egy-egy extra ${sc.productHu}!"`, `You are the plant manager. This morning the owner slammed the TC table on your desk: "Tell me exactly what each extra ${sc.productEn} costs US!"`)}
+                </p>
+                <p className="text-slate-700">
+                  🎯 <span className="font-semibold">{t('Feladatod:', 'Your task:')}</span>{' '}
+                  {t('Töltsd ki az MC oszlop mind a 10 sorát: minden Q-nál MC = ΔTC/ΔQ.', 'Fill in all 10 rows of the MC column: at each Q, MC = ΔTC/ΔQ.')}
+                </p>
+                <p className="text-slate-700">
+                  ⚠️ <span className="font-semibold">{t('A tét:', 'The stakes:')}</span>{' '}
+                  {t('Délután árajánlatot adtok egy nagy rendelésre. Ha az MC-t rosszul számolod, a cég a saját költsége alatt vállalja el — és minden legyártott darabbal pénzt éget.', 'This afternoon you quote a big order. Get MC wrong and the firm takes it below its own cost — burning money on every unit produced.')}
+                </p>
+              </div>
               <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-3">
                 💡 {t('Pl. Q=1-nél: MC = TC(1) − TC(0)', 'E.g. at Q=1: MC = TC(1) − TC(0)')}
               </p>
@@ -188,6 +196,30 @@ export default function Level2() {
                 <div>{t('Kérdések:', 'Quiz:')} +{quizPoints}</div>
                 <div>{t('Sebességi bónusz:', 'Speed bonus:')} +{timeBonus}</div>
               </div>
+              {(() => {
+                const frac = mcPoints / 200
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel = frac >= 0.9 ? t('Arany fokozat', 'Gold medal') : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal') : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal') : t('Gyakorolj még!', 'Keep practicing!')
+                const wrongCount = [1,2,3,4,5,6,7,8,9,10].filter(q => {
+                  const u = parseFloat(mcInputs[q])
+                  const c = sc.schedule[q].MC!
+                  return isNaN(u) || Math.abs(u - c) / c > 0.05
+                }).length
+                return (
+                  <div className="mt-3 pt-3 border-t border-emerald-200 space-y-1">
+                    <div className="text-sm font-bold text-slate-700">{medal} {medalLabel}</div>
+                    {wrongCount === 0 ? (
+                      <div className="text-sm font-medium text-emerald-700">
+                        🏆 {t('Minden MC pontos — az árajánlatod fillérre stimmel, a nagy rendelés nyereséges lesz!', 'Every MC is spot on — your quote is accurate to the penny, the big order will be profitable!')}
+                      </div>
+                    ) : (
+                      <div className="text-sm font-medium text-red-600">
+                        💸 {t(`${wrongCount} egységnél tévedtél az MC-ben — ezeknél a daraboknál vakon áraztál volna, akár a saját költséged alatt.`, `You missed MC on ${wrongCount} unit(s) — on those units you would have priced blind, possibly below your own cost.`)}
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">

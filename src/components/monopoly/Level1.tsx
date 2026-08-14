@@ -181,6 +181,20 @@ export default function Level1() {
                     <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full font-medium">{t(sc.industryHu, sc.industryEn)}</span>
                   </div>
                   <p className="text-slate-700 leading-relaxed text-sm">{t(sc.storyHu, sc.storyEn)}</p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex gap-2 items-start bg-white/70 border border-indigo-100 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t(`Te vagy a(z) ${sc.industryHu} piac egyeduralkodó cégvezére — versenytárs nélkül egyedül te döntesz az árról.`, `You are the monopolist CEO of the ${sc.industryEn} market — with no competitors, you alone decide the price.`)}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-amber-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎯</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {t('Húzd a csúszkát, és állítsd be azt az EGY árat, amely a lehető legnagyobb profitot hozza a cégednek!', 'Drag the slider and set the ONE price that brings your firm the highest possible profit!')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('Minden elhibázott forint elveszett profit — a részvényesek árgus szemekkel figyelik a döntésedet!', 'Every misjudged forint is lost profit — the shareholders are watching your every move!')}</p>
+                    </div>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-indigo-200 text-indigo-700 px-2 py-1 rounded-lg font-semibold">MC = {MC} Ft</span>
                     <span className="text-xs bg-white border border-indigo-200 text-indigo-700 px-2 py-1 rounded-lg font-semibold">{t('Kereslet: P = ', 'Demand: P = ')}{A} − {B}Q</span>
@@ -345,6 +359,14 @@ export default function Level1() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 450 ? t('🥇 Arany fokozat — mesteri árazás!', '🥇 Gold — masterful pricing!')
+                    : accuracyPoints >= 300 ? t('🥈 Ezüst fokozat — erős üzleti érzék!', '🥈 Silver — strong business instinct!')
+                    : accuracyPoints >= 150 ? t('🥉 Bronz fokozat — jó úton jársz!', '🥉 Bronze — you are on the right track!')
+                    : t('💪 Gyakorolj még — a piac nem kegyelmez!', '💪 Keep practicing — the market shows no mercy!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez és a toplista megtekintéséhez.', 'Sign in to save your score and see the leaderboard.')}
@@ -367,6 +389,14 @@ export default function Level1() {
                 {t(`A profitmaximalizáló feltétel: MR = MC → Q* = ${Qstar}, P* = ${Pstar} Ft, profit = ${sol.profit_monopoly} Ft.`,
                    `Profit-maximizing condition: MR = MC → Q* = ${Qstar}, P* = ${Pstar}, profit = ${sol.profit_monopoly}.`)}
               </p>
+              <div className={`rounded-xl p-3 mb-4 text-sm font-bold ${price === Pstar
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {price === Pstar
+                  ? t('🏆 Egyetlen forintot sem hagytál az asztalon — a részvényesek ünnepelnek!', '🏆 You left not a single forint on the table — the shareholders are celebrating!')
+                  : t(`💸 Ennyi profitot hagytál az asztalon: ${Math.round(sol.profit_monopoly - (price - MC) * Math.max(0, (A - price) / B))} Ft`,
+                      `💸 Profit left on the table: ${Math.round(sol.profit_monopoly - (price - MC) * Math.max(0, (A - price) / B))} Ft`)}
+              </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
                   { label: t('Mennyiség (Q*)', 'Quantity (Q*)'), value: Qstar,               color: 'text-indigo-700' },

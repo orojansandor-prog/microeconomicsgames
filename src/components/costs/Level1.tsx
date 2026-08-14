@@ -147,13 +147,23 @@ export default function Level1() {
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl border border-amber-100 p-6">
               <div className="text-2xl mb-2">{sc.icon}</div>
               <h2 className="font-bold text-slate-900 mb-1">{t(sc.titleHu, sc.titleEn)}</h2>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                {t(sc.storyHu, sc.storyEn)}{' '}
-                {t(
-                  'Kategorizáld a költségeket — fix (nem függ Q-tól) vagy változó (Q-val nő)?',
-                  'Categorize each cost — fixed (does not depend on Q) or variable (rises with Q)?'
-                )}
+              <p className="text-slate-600 text-sm leading-relaxed mb-3">
+                {t(sc.storyHu, sc.storyEn)}
               </p>
+              <div className="bg-white/70 rounded-xl p-3 text-sm space-y-2 mb-4">
+                <p className="text-slate-700">
+                  🎭 <span className="font-semibold">{t('Szereped:', 'Your role:')}</span>{' '}
+                  {t('Te vagy a cég frissen kinevezett pénzügyi vezetője — a számlák egyetlen nagy kupacban hevernek az asztalodon.', "You are the firm's freshly appointed CFO — the invoices sit in one big pile on your desk.")}
+                </p>
+                <p className="text-slate-700">
+                  🎯 <span className="font-semibold">{t('Feladatod:', 'Your task:')}</span>{' '}
+                  {t('Sorold be mindegyik költséget — Fix (nem függ Q-tól) vagy Változó (Q-val nő) —, majd a csúszkával és a mezővel becsüld meg a TC-t!', 'Sort each cost — Fixed (independent of Q) or Variable (rises with Q) — then estimate TC with the slider and the input field!')}
+                </p>
+                <p className="text-slate-700">
+                  ⚠️ <span className="font-semibold">{t('A tét:', 'The stakes:')}</span>{' '}
+                  {t('Holnap bankhitel-tárgyalás. Egy rosszul besorolt költség → hibás üzleti terv → a bank nemet mond, és a cég csődbe mehet.', 'Bank loan meeting tomorrow. One misclassified cost → flawed business plan → the bank says no, and the firm can go bankrupt.')}
+                </p>
+              </div>
               <div className="bg-white/70 rounded-xl p-3 text-sm">
                 <div className="font-semibold text-slate-700 mb-2">📊 {t('Ismert adatok (Ft/nap):', 'Known data (Ft/day):')}</div>
                 <table className="w-full text-xs font-mono">
@@ -253,6 +263,26 @@ export default function Level1() {
                 <div>{t('Kérdések:', 'Quiz:')} +{quizPoints}</div>
                 <div>{t('Sebességi bónusz:', 'Speed bonus:')} +{timeBonus}</div>
               </div>
+              {(() => {
+                const frac = (catPoints + tcPoints) / (sc.costItems.length * 20 + 200)
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel = frac >= 0.9 ? t('Arany fokozat', 'Gold medal') : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal') : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal') : t('Gyakorolj még!', 'Keep practicing!')
+                const wrongCount = sc.costItems.filter(i => assignments[i.id] !== i.correct).length
+                return (
+                  <div className="mt-3 pt-3 border-t border-emerald-200 space-y-1">
+                    <div className="text-sm font-bold text-slate-700">{medal} {medalLabel}</div>
+                    {wrongCount === 0 ? (
+                      <div className="text-sm font-medium text-emerald-700">
+                        🏆 {t('Hibátlan besorolás — az üzleti terved áll, a bank rábólint a hitelre!', 'Flawless classification — your business plan stands, the bank approves the loan!')}
+                      </div>
+                    ) : (
+                      <div className="text-sm font-medium text-red-600">
+                        💸 {t(`${wrongCount} költség rossz kategóriába került — egy ilyen üzleti tervvel a bank visszadobná a hitelkérelmet.`, `${wrongCount} cost(s) landed in the wrong category — with a business plan like this, the bank would reject the loan.`)}
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">

@@ -145,6 +145,29 @@ export default function BCLevel1() {
               <p className="text-slate-700 leading-relaxed text-sm">
                 {t(sc.storyHu, sc.storyEn)}
               </p>
+              <div className="mt-3 space-y-1.5 text-sm bg-white/70 border border-indigo-100 rounded-xl p-3">
+                <p className="text-slate-700">
+                  <span className="font-bold">🎭 {t('Szereped', 'Your role')}:</span>{' '}
+                  {t(
+                    `Te vagy a hónap pénzügyi parancsnoka: ${p.I.toLocaleString()} Ft-od van, és két dolog csábít — ${p.labelX} és ${p.labelY}. Minden forintról te döntesz.`,
+                    `You are this month's budget commander: you have ${p.I.toLocaleString()} Ft and two temptations — ${p.labelX} and ${p.labelY}. Every forint is your call.`,
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">🎯 {t('Feladatod', 'Your task')}:</span>{' '}
+                  {t(
+                    'Mozgasd a csúszkát, és állíts össze egy kosarat — figyeld, hogyan változik a másik jószág mennyisége és a maradék pénzed!',
+                    "Move the slider to build a basket — watch how the other good's quantity and your leftover money change!",
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">⚠️ {t('A tét', 'The stakes')}:</span>{' '}
+                  {t(
+                    'Aki rosszul kalkulál, azt a kassza bünteti: vagy nem futja a kosárra, vagy elpazarolt forintok maradnak a zsebében — egy szűkös hónap nem bocsát meg.',
+                    "Miscalculate and the checkout punishes you: either you can't afford the basket, or wasted forints sit idle in your pocket — a tight month is unforgiving.",
+                  )}
+                </p>
+              </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <span className="text-xs bg-white border border-indigo-200 text-indigo-700 px-2 py-1 rounded-lg font-semibold">
                   {t('Jövedelem (I)', 'Income (I)')} = {p.I.toLocaleString()} Ft
@@ -259,6 +282,34 @@ export default function BCLevel1() {
                   </div>
                 ))}
               </div>
+              {(() => {
+                const frac = qp / 300
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel =
+                  frac >= 0.9 ? t('Arany fokozat', 'Gold medal')
+                  : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal')
+                  : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal')
+                  : t('Gyakorolj még!', 'Keep practicing!')
+                return (
+                  <div className="mt-3 flex items-center gap-3 bg-white/20 rounded-xl p-3">
+                    <span className="text-3xl">{medal}</span>
+                    <div>
+                      <div className="font-black text-sm">{medalLabel}</div>
+                      <div className="text-xs opacity-90 mt-0.5">
+                        {remaining === 0
+                          ? t(
+                              `Az utolsó forintig kihasználtad a keretet: ${playerX} ${p.labelX} + ${playerY} ${p.labelY} = pontosan ${p.I.toLocaleString()} Ft. Parancsnoki precizitás!`,
+                              `You used your budget to the last forint: ${playerX} ${p.labelX} + ${playerY} ${p.labelY} = exactly ${p.I.toLocaleString()} Ft. Commander-grade precision!`,
+                            )
+                          : t(
+                              `A kosarad: ${playerX} ${p.labelX} + ${playerY} ${p.labelY} = ${playerSpend.toFixed(0)} Ft — ${remaining} Ft parlagon maradt a zsebedben.`,
+                              `Your basket: ${playerX} ${p.labelX} + ${playerY} ${p.labelY} = ${playerSpend.toFixed(0)} Ft — ${remaining} Ft sat idle in your pocket.`,
+                            )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
               {!quizCorrect && (
                 <p className="mt-3 text-xs opacity-80">
                   {t(`A helyes válasz: ${sc.quizAnswerIsYes ? 'Igen' : 'Nem'} — ${sc.quizTextHu}. Legközelebb +300 pont!`,

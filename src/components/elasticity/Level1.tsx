@@ -152,6 +152,11 @@ export default function ElasticityLevel1() {
                 <div>
                   <h2 className="font-bold text-slate-900">{t('Szituáció', 'Situation')}</h2>
                   <p className="text-slate-700 text-sm mt-1 leading-relaxed">{t(scenario.contextHu, scenario.contextEn)}</p>
+                  <div className="mt-3 space-y-2 bg-white/70 rounded-xl p-3 border border-indigo-100">
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎭 {t('Szereped:', 'Your role:')}</span> {t('Te vagy a NovaPrice árazási tanácsadó cég vezető elemzője. Az ügyfeled minden terméknél 10%-os áremelést fontolgat — és a te szavadra vár.', 'You are the lead analyst at the NovaPrice pricing consultancy. Your client is weighing a 10% price hike on every product — and is waiting on your word.')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎯 {t('Feladatod:', 'Your task:')}</span> {t('Minden terméknél egyetlen gombnyomással döntsd el: rugalmas vagy rugalmatlan a kereslete?', 'For each product, decide with a single click: is its demand elastic or inelastic?')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">⚠️ {t('A tét:', 'The stakes:')}</span> {t('Egy rossz rugalmasság-becslés hibás árazási tanácsot jelent — az ügyfeled vevőket veszít vagy bevételt hagy az asztalon, és milliókat bukik a te ajánlásod miatt.', 'One wrong elasticity call means bad pricing advice — your client loses customers or leaves revenue on the table, losing millions because of your recommendation.')}</p>
+                  </div>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -242,6 +247,31 @@ export default function ElasticityLevel1() {
                   </div>
                 ))}
               </div>
+              {(() => {
+                const frac = accuracyPoints / 500
+                const medal = frac >= 0.9
+                  ? { icon: '🥇', label: t('Arany fokozat!', 'Gold medal!') }
+                  : frac >= 0.6
+                  ? { icon: '🥈', label: t('Ezüst fokozat', 'Silver medal') }
+                  : frac >= 0.3
+                  ? { icon: '🥉', label: t('Bronz fokozat', 'Bronze medal') }
+                  : { icon: '💪', label: t('Gyakorolj még!', 'Keep practicing!') }
+                const correctCount = scenario.products.filter(p => classifications[p.id] === (Math.abs(p.ped) > 1 ? 'elastic' : 'inelastic')).length
+                const perfect = correctCount === scenario.products.length
+                return (
+                  <div className="bg-white/10 rounded-xl p-4 flex items-center gap-3">
+                    <span className="text-4xl">{medal.icon}</span>
+                    <div>
+                      <div className="font-black text-white">{medal.label}</div>
+                      <p className="text-sm text-indigo-100 mt-0.5">
+                        {perfect
+                          ? t('Hibátlan elemzés! Az ügyfeled minden terméknél a jó árstratégiát kapta — te vagy a NovaPrice sztárelemzője! 🎉', 'Flawless analysis! Your client got the right pricing strategy for every product — you are the star analyst of NovaPrice! 🎉')
+                          : `${correctCount}/${scenario.products.length} ${t('terméket soroltál be helyesen. Ahol tévedtél, ott az ügyfeled rossz árazási tanácsot kapott — és bevételt bukott.', 'products classified correctly. Where you missed, your client got bad pricing advice — and lost revenue.')}`}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Results table */}

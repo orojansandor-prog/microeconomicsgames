@@ -176,6 +176,11 @@ export default function ElasticityLevel4() {
                 <div>
                   <h2 className="font-bold text-slate-900">{t('Szituáció', 'Situation')}</h2>
                   <p className="text-slate-700 text-sm mt-1 leading-relaxed">{t(scenario.contextHu, scenario.contextEn)}</p>
+                  <div className="mt-3 space-y-2 bg-white/70 rounded-xl p-3 border border-violet-100">
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎭 {t('Szereped:', 'Your role:')}</span> {t('Te vagy a Horizon Alapkezelő befektetési elemzője. A gazdaság fellendül, a jövedelmek nőnek — a portfóliómenedzser tőled kérdezi, mely termékek kereslete merre mozdul.', 'You are the investment analyst at Horizon Asset Management. The economy is booming, incomes are rising — the portfolio manager asks you which way demand for each product will move.')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎯 {t('Feladatod:', 'Your task:')}</span> {t('Minden terméknél a három gomb egyikével jósold meg: nő, csökken vagy nem változik a kereslete, ha a jövedelem emelkedik?', 'For each product, predict with one of the three buttons: does its demand rise, fall or stay the same when income increases?')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">⚠️ {t('A tét:', 'The stakes:')}</span> {t('Rossz előrejelzés esetén az alap zsugorodó iparágba fekteti a pénzt — a befektetők milliókat buknak a te elemzésed miatt.', 'With a wrong forecast the fund pours money into a shrinking industry — investors lose millions because of your analysis.')}</p>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-violet-200 text-violet-700 px-2 py-1 rounded-lg font-semibold">YED = ΔQ% / ΔY%</span>
                     <span className="text-xs bg-white border border-violet-200 text-violet-700 px-2 py-1 rounded-lg font-semibold">ΔY = +{scenario.deltaY_pct}%</span>
@@ -279,6 +284,31 @@ export default function ElasticityLevel4() {
                   </div>
                 ))}
               </div>
+              {(() => {
+                const frac = accuracyPoints / 500
+                const medal = frac >= 0.9
+                  ? { icon: '🥇', label: t('Arany fokozat!', 'Gold medal!') }
+                  : frac >= 0.6
+                  ? { icon: '🥈', label: t('Ezüst fokozat', 'Silver medal') }
+                  : frac >= 0.3
+                  ? { icon: '🥉', label: t('Bronz fokozat', 'Bronze medal') }
+                  : { icon: '💪', label: t('Gyakorolj még!', 'Keep practicing!') }
+                const correctCount = scenario.products.filter(p => predictions[p.id] === getTruePrediction(p.deltaQ_pct)).length
+                const perfect = correctCount === scenario.products.length
+                return (
+                  <div className="bg-white/10 rounded-xl p-4 flex items-center gap-3">
+                    <span className="text-4xl">{medal.icon}</span>
+                    <div>
+                      <div className="font-black text-white">{medal.label}</div>
+                      <p className="text-sm text-indigo-100 mt-0.5">
+                        {perfect
+                          ? t('Hibátlan előrejelzés! Minden termék irányát eltaláltad — az alap minden forintja jó helyre került, a portfóliómenedzser gratulál. 🎉', 'A flawless forecast! You called the direction of every product — every dollar of the fund landed in the right place, and the portfolio manager congratulates you. 🎉')
+                          : `${correctCount}/${scenario.products.length} ${t('termék irányát találtad el. A többinél az alap rossz iparágba fektetett volna — a befektetők pénze a te elemzéseden múlik.', 'product directions called correctly. On the rest the fund would have invested in the wrong industry — investor money rides on your analysis.')}`}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Results table */}

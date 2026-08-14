@@ -166,6 +166,11 @@ export default function ElasticityLevel3() {
                 <div>
                   <h2 className="font-bold text-slate-900">{t('Szituáció', 'Situation')}</h2>
                   <p className="text-slate-700 text-sm mt-1 leading-relaxed">{t(scenario.contextHu, scenario.contextEn)}</p>
+                  <div className="mt-3 space-y-2 bg-white/70 rounded-xl p-3 border border-green-100">
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎭 {t('Szereped:', 'Your role:')}</span> {t('Te vagy egy nagy kiskereskedelmi lánc piackutató elemzője. A beszállítók árat emeltek, és a vezérigazgató tőled várja: melyik termék kereslete hogyan reagál a másik árára?', 'You are the market research analyst of a major retail chain. Suppliers raised prices, and the CEO wants your call: how does demand for each product react to the price of the other?')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎯 {t('Feladatod:', 'Your task:')}</span> {t('Minden párnál egyetlen gombnyomással döntsd el: helyettesítő, komplementer vagy független a két termék?', 'For each pair, decide with a single click: are the two products substitutes, complements or independent?')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">⚠️ {t('A tét:', 'The stakes:')}</span> {t('Ha egy komplementert helyettesítőnek nézel, a lánc rossz akciós stratégiát épít rá — az áru a polcokon ragad, és milliós bevétel úszik el.', 'If you mistake a complement for a substitute, the chain builds the wrong promotion strategy on it — goods sit on the shelves and millions in revenue evaporate.')}</p>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-green-200 text-green-700 px-2 py-1 rounded-lg font-semibold">XED = ΔQ(B)% / ΔP(A)%</span>
                     <span className="text-xs bg-white border border-green-200 text-green-700 px-2 py-1 rounded-lg font-semibold">{t('XED>0: helyettesítő', 'XED>0: substitute')}</span>
@@ -262,6 +267,31 @@ export default function ElasticityLevel3() {
                   </div>
                 ))}
               </div>
+              {(() => {
+                const frac = accuracyPoints / 500
+                const medal = frac >= 0.9
+                  ? { icon: '🥇', label: t('Arany fokozat!', 'Gold medal!') }
+                  : frac >= 0.6
+                  ? { icon: '🥈', label: t('Ezüst fokozat', 'Silver medal') }
+                  : frac >= 0.3
+                  ? { icon: '🥉', label: t('Bronz fokozat', 'Bronze medal') }
+                  : { icon: '💪', label: t('Gyakorolj még!', 'Keep practicing!') }
+                const correctCount = scenario.pairs.filter(p => classifications[p.id] === p.type).length
+                const perfect = correctCount === scenario.pairs.length
+                return (
+                  <div className="bg-white/10 rounded-xl p-4 flex items-center gap-3">
+                    <span className="text-4xl">{medal.icon}</span>
+                    <div>
+                      <div className="font-black text-white">{medal.label}</div>
+                      <p className="text-sm text-indigo-100 mt-0.5">
+                        {perfect
+                          ? t('Tökéletes piactérkép! Minden párt helyesen soroltál be — a vezérigazgató rád bízza a következő akciós kampányt. 🎉', 'A perfect market map! You classified every pair correctly — the CEO puts you in charge of the next promotion campaign. 🎉')
+                          : `${correctCount}/${scenario.pairs.length} ${t('párt soroltál be helyesen. A félreismert kapcsolatokra a lánc rossz akciós stratégiát épített volna — és a polcokon ragadt volna az áru.', 'pairs classified correctly. On the misjudged relationships the chain would have built the wrong promotion strategy — and goods would have sat on the shelves.')}`}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Results table */}

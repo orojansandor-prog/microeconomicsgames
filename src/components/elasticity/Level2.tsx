@@ -180,6 +180,11 @@ export default function ElasticityLevel2() {
                       'Prices rose 20%. As a producer/supplier: by how much can you increase the quantity supplied? The question is NOT how much buyers will buy — but how much YOU can supply.',
                     )}
                   </p>
+                  <div className="mt-3 space-y-2 bg-white/70 rounded-xl p-3 border border-blue-100">
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎭 {t('Szereped:', 'Your role:')}</span> {t('Te vagy a kapacitástervezési tanácsadó, akit a legnagyobb iparágak termelői kértek fel: mondd meg, mennyire tudják növelni a kínálatot, ha 20%-kal nőnek az árak.', 'You are the capacity-planning consultant hired by producers across major industries: tell them how much they can expand supply when prices jump 20%.')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">🎯 {t('Feladatod:', 'Your task:')}</span> {t('Minden iparágnál állítsd be a két csúszkán a rövid és a hosszú távú PES becslésedet (0–15).', 'For each industry, set your short-run and long-run PES estimate (0–15) on the two sliders.')}</p>
+                    <p className="text-sm text-slate-800"><span className="font-bold">⚠️ {t('A tét:', 'The stakes:')}</span> {t('Rossz PES-becslés félretervezett kapacitásbővítést jelent: üresen álló gyárak vagy elszalasztott milliós profit — a termelők a te számaid alapján döntenek.', 'A wrong PES estimate means misplanned capacity: idle factories or millions in missed profit — the producers decide based on your numbers.')}</p>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">PES = ΔQs% / ΔP%</span>
                     <span className="text-xs bg-white border border-blue-200 text-blue-700 px-2 py-1 rounded-lg font-semibold">{t('PES=0: fix kapacitás', 'PES=0: fixed capacity')}</span>
@@ -288,6 +293,32 @@ export default function ElasticityLevel2() {
                   </div>
                 ))}
               </div>
+              {(() => {
+                const frac = accuracyPoints / (scenario.industries.length * 100)
+                const medal = frac >= 0.9
+                  ? { icon: '🥇', label: t('Arany fokozat!', 'Gold medal!') }
+                  : frac >= 0.6
+                  ? { icon: '🥈', label: t('Ezüst fokozat', 'Silver medal') }
+                  : frac >= 0.3
+                  ? { icon: '🥉', label: t('Bronz fokozat', 'Bronze medal') }
+                  : { icon: '💪', label: t('Gyakorolj még!', 'Keep practicing!') }
+                const errs = scenario.industries.map((ind, i) => Math.abs((shortEstimates[i] ?? 0) - ind.shortRunPES) + Math.abs((longEstimates[i] ?? 0) - ind.longRunPES))
+                const worstIdx = errs.indexOf(Math.max(...errs))
+                const worst = scenario.industries[worstIdx]
+                return (
+                  <div className="bg-white/10 rounded-xl p-4 flex items-center gap-3">
+                    <span className="text-4xl">{medal.icon}</span>
+                    <div>
+                      <div className="font-black text-white">{medal.label}</div>
+                      <p className="text-sm text-indigo-100 mt-0.5">
+                        {frac >= 0.9
+                          ? t('Mesteri kapacitás-érzék! A becsléseid szinte pontosan eltalálták a valós PES értékeket — minden termelő ügyfeled nyugodtan tervezhet. 🎉', 'Masterful capacity instinct! Your estimates hit the true PES values almost exactly — every producer client can plan with confidence. 🎉')
+                          : `${t('Legnagyobb tévedésed:', 'Your biggest miss:')} ${worst.emoji} ${t(worst.huName, worst.enName)} — ${t('összesen', 'a total of')} ${errs[worstIdx].toFixed(1)} ${t('egységgel csúsztál mellé a valós PES-hez képest. A valóságban ez félretervezett gyárakat és kihasználatlan kapacitást jelentene.', 'units off the true PES. In reality that would mean misplanned factories and idle capacity.')}`}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Results table */}

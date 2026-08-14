@@ -180,6 +180,20 @@ export default function Level1() {
                   <p className="text-slate-700 leading-relaxed text-sm">
                     {t(sc.storyHu, sc.storyEn)}
                   </p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex gap-2 items-start bg-white/70 border border-indigo-100 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t('Te vagy a piac frissen felvett elemzője. A főnököd egyetlen kérdést tesz fel: hol áll be a piac magától?', 'You are the market\'s newly hired analyst. Your boss asks one question: where does this market settle on its own?')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-amber-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎯</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {t('Állítsd be a KÉT csúszkát arra az árra (P*) és mennyiségre (Q*), ahol a keresett és a kínált mennyiség pontosan megegyezik — ahol a hiány és a felesleg is nulla!', 'Set BOTH sliders to the price (P*) and quantity (Q*) where quantity demanded exactly equals quantity supplied — where both shortage and surplus are zero!')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('Ha melléfogsz, a raktár vagy dugig telik eladatlan áruval, vagy a polcok kiürülnek és a vevők a konkurenciához mennek.', 'Miss it, and either the warehouse fills with unsold stock, or the shelves empty and customers walk to your competitor.')}</p>
+                    </div>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-indigo-200 text-indigo-700 px-2 py-1 rounded-lg font-semibold">
                       {t('Kereslet', 'Demand')}: {demandLabel}
@@ -328,6 +342,14 @@ export default function Level1() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 180 ? t('🥇 Arany fokozat — tökéletes piacérzék!', '🥇 Gold — perfect market sense!')
+                    : accuracyPoints >= 120 ? t('🥈 Ezüst fokozat — közel jártál az egyensúlyhoz!', '🥈 Silver — you were close to equilibrium!')
+                    : accuracyPoints >= 60 ? t('🥉 Bronz fokozat — megvan az irány, finomítsd!', '🥉 Bronze — right direction, keep refining!')
+                    : t('💪 Gyakorolj még — a görbék metszéspontja a kulcs!', '💪 Keep practicing — the crossing point of the curves is the key!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez.', 'Sign in to save your score.')}
@@ -346,6 +368,14 @@ export default function Level1() {
                   : t(`Te P=${playerPrice}, Q=${playerQty} — helyes: P*=${OPT_P}, Q*=${OPT_Q}`, `You chose P=${playerPrice}, Q=${playerQty} — correct: P*=${OPT_P}, Q*=${OPT_Q}`)
                 }
               </h2>
+              <div className={`rounded-xl p-3 mb-4 text-sm font-bold ${isCorrect
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {isCorrect
+                  ? t('🏆 Telitalálat — se hiány, se felesleg. A piac pontosan itt tisztul!', '🏆 Bullseye — no shortage, no surplus. The market clears exactly here!')
+                  : t(`💸 Az árban ${Math.abs(playerPrice - OPT_P)} egységgel, a mennyiségben ${Math.abs(playerQty - OPT_Q)} egységgel tévedtél — ennyi hiány vagy felesleg keletkezett volna a piacon.`,
+                      `💸 You were off by ${Math.abs(playerPrice - OPT_P)} on price and ${Math.abs(playerQty - OPT_Q)} on quantity — that is the shortage or surplus your call would have created.`)}
+              </div>
               <p className="text-sm text-slate-600 mb-4">
                 {t(
                   `Az egyensúlyi feltétel: Qd = Qs → ${A} − Q = ${C} + Q → Q* = ${OPT_Q}, P* = ${OPT_P}.`,

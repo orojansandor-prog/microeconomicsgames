@@ -162,6 +162,20 @@ export default function Level3() {
                 <div>
                   <h2 className="font-bold text-slate-900 text-base mb-1">{t(sc.titleHu, sc.titleEn)}</h2>
                   <p className="text-slate-700 leading-relaxed text-sm">{t(sc.storyHu, sc.storyEn)}</p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex gap-2 items-start bg-white/70 border border-indigo-100 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t('Te vagy a Versenyhivatal frissen kinevezett elnöke. Az asztalodon két akta ugyanarról a piacról: az egyikben monopólium uralkodik, a másikban tökéletes verseny.', 'You are the newly appointed head of the Competition Authority. On your desk: two case files on the same market — one ruled by a monopoly, the other by perfect competition.')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-amber-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎯</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {t('Vizsgáld végig a lenti összehasonlító táblázatot, és a 3 kulcskérdés alapján alkoss ítéletet: ki nyer, ki veszít, és hová tűnik a jólét!', 'Examine the comparison table below and use the 3 key questions to form your verdict: who wins, who loses, and where does the welfare vanish?')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('A jelentésed egyenesen a miniszterhez kerül — ha rosszul ítélsz, a rejtett társadalmi veszteség (DWL) évekig észrevétlen marad!', 'Your report goes straight to the minister — judge wrong, and the hidden social loss (DWL) stays invisible for years!')}</p>
+                    </div>
+                  </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-indigo-200 text-indigo-700 px-2 py-1 rounded-lg font-semibold">D: P = {A} − {B}Q</span>
                     <span className="text-xs bg-white border border-indigo-200 text-indigo-700 px-2 py-1 rounded-lg font-semibold">MC = {MC} Ft</span>
@@ -305,6 +319,14 @@ export default function Level3() {
                     <div className="text-xs text-indigo-300">/ {item.max}</div>
                   </div>
                 ))}
+              </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 450 ? t('🥇 Arany fokozat — éles szemű versenyfelügyelő!', '🥇 Gold — sharp-eyed competition watchdog!')
+                    : accuracyPoints >= 300 ? t('🥈 Ezüst fokozat — jó nyomon jársz!', '🥈 Silver — you are on the right trail!')
+                    : accuracyPoints >= 150 ? t('🥉 Bronz fokozat — nézd át újra az aktákat!', '🥉 Bronze — review the case files again!')
+                    : t('💪 Gyakorolj még — a piac titkai megvárnak!', '💪 Keep practicing — the secrets of the market will wait!')}
+                </span>
               </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">

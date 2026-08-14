@@ -187,6 +187,20 @@ export default function Level2() {
                   <p className="text-slate-700 leading-relaxed text-sm">
                     {t(sc.storyHu, sc.storyEn)}
                   </p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex gap-2 items-start bg-white/70 border border-indigo-100 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t('Te vagy a piac vezető elemzője — és most egyszerre KÉT sokk éri a piacot.', 'You are the market\'s lead analyst — and now TWO shocks hit the market at once.')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-amber-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎯</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {t('Először tippeld meg gombokkal, merre mozdul a kereslet és a kínálat, majd a csúszkákkal jósold meg az ÚJ egyensúlyi árat és mennyiséget!', 'First use the buttons to guess which way demand and supply shift, then use the sliders to predict the NEW equilibrium price and quantity!')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('Az egész kereskedési részleg a te előrejelzésed alapján pozicionál — ha rossz irányba tippelsz, a cég a rossz oldalon áll, amikor a piac elmozdul.', 'The whole trading desk positions on your forecast — guess the wrong direction and the firm is on the wrong side when the market moves.')}</p>
+                    </div>
+                  </div>
                   <div className="mt-2 text-xs font-semibold text-indigo-700 bg-white border border-indigo-200 px-2 py-1 rounded-lg inline-block">
                     {t(sc.shiftTypeHu, sc.shiftTypeEn)}
                   </div>
@@ -377,6 +391,14 @@ export default function Level2() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 180 ? t('🥇 Arany fokozat — kristálytiszta előrejelzés!', '🥇 Gold — crystal-clear forecast!')
+                    : accuracyPoints >= 120 ? t('🥈 Ezüst fokozat — erős piaci ösztön!', '🥈 Silver — strong market instinct!')
+                    : accuracyPoints >= 60 ? t('🥉 Bronz fokozat — az irány megvan, a mérték még nem!', '🥉 Bronze — direction right, magnitude not yet!')
+                    : t('💪 Gyakorolj még — két görbe, két hatás — bontsd szét őket!', '💪 Keep practicing — two curves, two effects — separate them!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez.', 'Sign in to save your score.')}
@@ -395,6 +417,14 @@ export default function Level2() {
                   : t(`Te P=${playerPrice}, Q=${playerQty} — helyes: P*=${SHIFT_P}, Q*=${SHIFT_Q}`, `You chose P=${playerPrice}, Q=${playerQty} — correct: P*=${SHIFT_P}, Q*=${SHIFT_Q}`)
                 }
               </h2>
+              <div className={`rounded-xl p-3 mb-3 text-sm font-bold ${isCorrect
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {isCorrect
+                  ? t('🏆 Pontos előrejelzés — a kereskedési részleg a te tippedre fogadott, és nyert!', '🏆 Accurate forecast — the trading desk bet on your call and won!')
+                  : t(`💸 Az előrejelzésed ${Math.abs(playerPrice - SHIFT_P)} egységgel tévedett az árban és ${Math.abs(playerQty - SHIFT_Q)} egységgel a mennyiségben — a részleg ekkorát tévedett volna a pozícióval.`,
+                      `💸 Your forecast was off by ${Math.abs(playerPrice - SHIFT_P)} on price and ${Math.abs(playerQty - SHIFT_Q)} on quantity — that is how far the desk would have mispositioned.`)}
+              </div>
               <p className="text-sm text-slate-600 mb-2">
                 {t(
                   `Új egyensúly: ${shiftDemandLabel} = ${shiftSupplyLabel} → Q* = ${SHIFT_Q}, P* = ${SHIFT_P}.`,

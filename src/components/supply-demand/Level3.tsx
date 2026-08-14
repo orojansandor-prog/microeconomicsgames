@@ -251,6 +251,22 @@ export default function SDLevel3() {
                       ? t('A Kormány ársapkát vezet be', 'The Government introduces a price cap')
                       : t('A Kormány árpadlót vezet be', 'The Government introduces a price floor')}
                   </h2>
+                  <div className="space-y-2 mb-3">
+                    <div className="flex gap-2 items-start bg-white border border-indigo-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t('Te vagy a minisztérium közgazdasági tanácsadója. A Kormány már döntött az árszabályozásról — a te dolgod megmondani, mi lesz a következménye.', 'You are the ministry\'s chief economic advisor. The Government has already decided on the price control — your job is to say what it will cause.')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white border border-amber-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎯</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {scenario === 'ceiling'
+                        ? t('Számítsd ki, mekkora HIÁNY keletkezik a szabályozott áron: Qs (kínálat) és Qd (kereslet) különbsége!', 'Calculate the SHORTAGE at the regulated price: the gap between Qd (demand) and Qs (supply)!')
+                        : t('Számítsd ki, mekkora FELESLEG keletkezik a szabályozott áron: Qs (kínálat) és Qd (kereslet) különbsége!', 'Calculate the SURPLUS at the regulated price: the gap between Qs (supply) and Qd (demand)!')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('A számod bekerül a kormányjelentésbe. Ha alábecsülöd, senki nem készül fel a sorban állásra vagy a megsemmisítendő többletre — és a válság készületlenül éri az országot.', 'Your number goes into the government report. Underestimate it and nobody prepares for the queues or the surplus to be destroyed — and the crisis catches the country off guard.')}</p>
+                    </div>
+                  </div>
                   <div className="grid sm:grid-cols-2 gap-2 mb-3">
                     <div className="bg-white rounded-xl p-3 border border-slate-200">
                       <div className="text-xs text-slate-500 mb-1">{t('Keresleti függvény', 'Demand function')}</div>
@@ -403,11 +419,30 @@ export default function SDLevel3() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 180 ? t('🥇 Arany fokozat — pontos hatásvizsgálat!', '🥇 Gold — precise impact assessment!')
+                    : accuracyPoints >= 120 ? t('🥈 Ezüst fokozat — jó becslés, kis eltéréssel!', '🥈 Silver — good estimate, small deviation!')
+                    : accuracyPoints >= 60 ? t('🥉 Bronz fokozat — a mechanizmus megvan, a szám még nem!', '🥉 Bronze — mechanism right, number not yet!')
+                    : t('💪 Gyakorolj még — Qd és Qs külön számolandó a szabályozott áron!', '💪 Keep practicing — compute Qd and Qs separately at the regulated price!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez.', 'Sign in to save your score.')}
                 </p>
               )}
+            </div>
+
+            <div className={`rounded-2xl border-2 p-6 ${accuracyPoints >= 180
+              ? 'border-emerald-400 bg-gradient-to-br from-emerald-50 to-teal-50'
+              : 'border-amber-300 bg-gradient-to-br from-amber-50 to-yellow-50'}`}>
+              <div className="text-4xl mb-2">{accuracyPoints >= 180 ? '🎯' : '📊'}</div>
+              <p className="text-sm font-bold text-slate-800">
+                {accuracyPoints >= 180
+                  ? t(`🏆 A becslésed (${playerGapGuess}) fillérre pontos — a valós érték ${correctGap}. A miniszter a te számodra alapoz!`, `🏆 Your estimate (${playerGapGuess}) is spot on — the true value is ${correctGap}. The minister builds on your number!`)
+                  : t(`💸 Te ${playerGapGuess} egységet becsültél, a valóság ${correctGap} — ${Math.abs(playerGapGuess - correctGap)} egységgel tévedtél. Ennyi vevő marad ellátatlanul (vagy ennyi áru megy a kukába) a jelentésedben nem szereplő módon.`, `💸 You estimated ${playerGapGuess}, reality is ${correctGap} — off by ${Math.abs(playerGapGuess - correctGap)}. That many buyers go unserved (or that much output goes to waste) in a way your report never flagged.`)}
+              </p>
             </div>
 
             {/* Chart */}

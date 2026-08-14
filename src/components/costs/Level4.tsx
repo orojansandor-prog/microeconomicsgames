@@ -137,12 +137,26 @@ export default function Level4() {
                   `Rule: move the slider until MC ≈ P. If MC < P, keep producing — each unit adds profit. If MC > P, the last unit was a loss!`
                 )}
               </p>
-              <p className="text-slate-600 text-sm leading-relaxed">
+              <p className="text-slate-600 text-sm leading-relaxed mt-3 mb-3">
                 {t(
-                  `A piaci ár P = ${MARKET_PRICE} Ft. Ha ennél többet kérsz, senki sem vesz tőled. Ha kevesebbet, veszítesz. Döntsd el: hány ${sc.productHu} legyen?`,
-                  `The market price is P = ${MARKET_PRICE} Ft. If you charge more, nobody buys. If you charge less, you lose money. Decide: how many ${sc.productEn}s to produce?`
+                  `A piaci ár P = ${MARKET_PRICE} Ft. Ha ennél többet kérsz, senki sem vesz tőled. Ha kevesebbet, veszítesz.`,
+                  `The market price is P = ${MARKET_PRICE} Ft. If you charge more, nobody buys. If you charge less, you lose money.`
                 )}
               </p>
+              <div className="bg-white/70 rounded-xl p-3 text-sm space-y-2">
+                <p className="text-slate-700">
+                  🎭 <span className="font-semibold">{t('Szereped:', 'Your role:')}</span>{' '}
+                  {t(`Te vagy a(z) ${sc.productHu}-üzem frissen kinevezett termelési igazgatója egy tökéletesen versenyző piacon.`, `You are the freshly appointed production director of the ${sc.productEn} plant in a perfectly competitive market.`)}
+                </p>
+                <p className="text-slate-700">
+                  🎯 <span className="font-semibold">{t('Feladatod:', 'Your task:')}</span>{' '}
+                  {t('Állítsd a csúszkát arra a Q-ra, amelyik szerinted a legnagyobb profitot hozza, majd küldd be a döntésed!', 'Set the slider to the Q you believe yields the highest profit, then submit your decision!')}
+                </p>
+                <p className="text-slate-700">
+                  ⚠️ <span className="font-semibold">{t('A tét:', 'The stakes:')}</span>{' '}
+                  {t('Minden félrecsúszott egység valódi forintban mért elmaradt profit. A tulajdonosok a hónap végén a számokat nézik — rossz Q mellett a te prémiumod bánja.', 'Every unit off the mark is real forints of lost profit. At month end the owners look at the numbers — with the wrong Q, it comes out of your bonus.')}
+                </p>
+              </div>
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">
@@ -193,6 +207,26 @@ export default function Level4() {
                 <div>{t('Kérdések:', 'Quiz:')} +{quizPoints}</div>
                 <div>{t('Sebességi bónusz:', 'Speed bonus:')} +{timeBonus}</div>
               </div>
+              {(() => {
+                const frac = accuracyPoints / 200
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel = frac >= 0.9 ? t('Arany fokozat', 'Gold medal') : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal') : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal') : t('Gyakorolj még!', 'Keep practicing!')
+                const lostProfit = computeScenarioProfit(OPTIMAL_Q, MARKET_PRICE) - computeScenarioProfit(sliderQ, MARKET_PRICE)
+                return (
+                  <div className="mt-3 pt-3 border-t border-emerald-200 space-y-1">
+                    <div className="text-sm font-bold text-slate-700">{medal} {medalLabel}</div>
+                    {lostProfit > 0 ? (
+                      <div className="text-sm font-medium text-red-600">
+                        💸 {t(`Ennyi profitot hagytál az asztalon: ${lostProfit} Ft (Q=${sliderQ} helyett Q=${OPTIMAL_Q} lett volna az optimum).`, `Profit you left on the table: ${lostProfit} Ft (you chose Q=${sliderQ}, the optimum was Q=${OPTIMAL_Q}).`)}
+                      </div>
+                    ) : (
+                      <div className="text-sm font-medium text-emerald-700">
+                        🏆 {t('Tökéletes döntés: pontosan a profitmaximumot választottad — egyetlen forint sem maradt az asztalon!', 'Perfect call: you picked the exact profit maximum — not a single forint left on the table!')}
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">

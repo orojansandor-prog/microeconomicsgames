@@ -120,12 +120,23 @@ export default function Level3() {
             <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-100 p-6">
               <div className="text-2xl mb-2">📐</div>
               <h2 className="font-bold text-slate-900 mb-1">{t('A hatékony méret', 'The efficient scale')}</h2>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                {t(
-                  '"A hatékonyság titka a jó méret." Nézd meg a görbéket! Melyik Q-nál a legalacsonyabb az ATC és az AVC?',
-                  '"The secret of efficiency is the right scale." Look at the curves! At which Q is ATC and AVC at their lowest?'
-                )}
+              <p className="text-slate-600 text-sm leading-relaxed mb-3">
+                {t('"A hatékonyság titka a jó méret."', '"The secret of efficiency is the right scale."')}
               </p>
+              <div className="bg-white/70 rounded-xl p-3 text-sm space-y-2">
+                <p className="text-slate-700">
+                  🎭 <span className="font-semibold">{t('Szereped:', 'Your role:')}</span>{' '}
+                  {t(`Te vagy a(z) ${sc.icon} vállalkozás felbérelt stratégiai tanácsadója. A tulajdonos egyetlen kérdéssel vár: „Mekkora üzemméret az ideális?"`, `You are the hired strategy consultant of the ${sc.icon} business. The owner greets you with a single question: "What is the ideal scale of operation?"`)}
+                </p>
+                <p className="text-slate-700">
+                  🎯 <span className="font-semibold">{t('Feladatod:', 'Your task:')}</span>{' '}
+                  {t('Olvasd le a görbékről, és írd be: melyik Q-nál a legalacsonyabb az ATC, és melyiknél az AVC!', 'Read the curves and enter: at which Q is ATC lowest, and at which Q is AVC lowest!')}
+                </p>
+                <p className="text-slate-700">
+                  ⚠️ <span className="font-semibold">{t('A tét:', 'The stakes:')}</span>{' '}
+                  {t('A tulajdonos a te számod alapján bővít vagy zsugorít. Rossz méret → drágán termel, a versenytársak alá áraznak, és a cég kiszorul a piacról.', 'The owner will expand or shrink based on your number. Wrong scale → costly production, competitors undercut you, and the firm is pushed out of the market.')}
+                </p>
+              </div>
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">
@@ -190,6 +201,26 @@ export default function Level3() {
                 <div>{t('Kérdések:', 'Quiz:')} +{quizPoints}</div>
                 <div>{t('Sebességi bónusz:', 'Speed bonus:')} +{timeBonus}</div>
               </div>
+              {(() => {
+                const frac = guessPoints / 200
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel = frac >= 0.9 ? t('Arany fokozat', 'Gold medal') : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal') : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal') : t('Gyakorolj még!', 'Keep practicing!')
+                const perfect = parseInt(guessMinATC) === sc.qMinATC && parseInt(guessMinAVC) === sc.qMinAVC
+                return (
+                  <div className="mt-3 pt-3 border-t border-emerald-200 space-y-1">
+                    <div className="text-sm font-bold text-slate-700">{medal} {medalLabel}</div>
+                    {perfect ? (
+                      <div className="text-sm font-medium text-emerald-700">
+                        🏆 {t('Mindkét minimumot eltaláltad — a tanácsod alapján a cég pontosan a hatékony méretre áll be!', 'You nailed both minima — following your advice, the firm settles at exactly the efficient scale!')}
+                      </div>
+                    ) : (
+                      <div className="text-sm font-medium text-red-600">
+                        💸 {t(`A hatékony méretet elvétetted (ATC-minimum: Q=${sc.qMinATC}, AVC-minimum: Q=${sc.qMinAVC}) — rossz méretű üzemmel a cég évekig felesleges költséget cipelne.`, `You missed the efficient scale (min ATC at Q=${sc.qMinATC}, min AVC at Q=${sc.qMinAVC}) — at the wrong scale, the firm would carry needless costs for years.`)}
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
 
             <div className="bg-white rounded-2xl border border-slate-200 p-6">

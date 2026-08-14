@@ -49,6 +49,9 @@ export default function Level2() {
   const q1 = Math.max(0, (M1.A - p1) / M1.B)
   const q2 = Math.max(0, (M2.A - p2) / M2.B)
 
+  const playerTotalProfit = (p1 - MC) * q1 + (p2 - MC) * q2
+  const profitLeftOnTable = Math.max(0, Math.round(SOLUTION.profit_total - playerTotalProfit))
+
   const handleTimerTick = (remaining: number) => {
     secondsRemainingRef.current = remaining
   }
@@ -154,6 +157,16 @@ export default function Level2() {
                 <div>
                   <h2 className="font-bold text-slate-900 text-base mb-1">{t(sc.titleHu, sc.titleEn)}</h2>
                   <p className="text-slate-700 leading-relaxed text-sm">{t(sc.storyHu, sc.storyEn)}</p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex gap-2 items-start bg-white/70 border border-indigo-100 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t(`Te vagy a monopólium árazási igazgatója — két külön piacod van (${M1.labelHu} és ${M2.labelHu}), és mindkettőnek te szabod meg az árát.`, `You are the pricing director of the monopoly — you serve two separate markets (${M1.labelEn} and ${M2.labelEn}), and you set the price for each.`)}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('Ha a két piacot egyformán árazod, milliókat égetsz el — az igazgatótanács a két piacból kihozható maximális profitot várja tőled!', 'Price both markets the same and you burn millions — the board expects you to squeeze the maximum profit out of both markets!')}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -326,6 +339,14 @@ export default function Level2() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 450 ? t('🥇 Arany fokozat — az árdiszkrimináció nagymestere!', '🥇 Gold — grandmaster of price discrimination!')
+                    : accuracyPoints >= 300 ? t('🥈 Ezüst fokozat — két piac, jó érzék!', '🥈 Silver — two markets, good instincts!')
+                    : accuracyPoints >= 150 ? t('🥉 Bronz fokozat — kezded átlátni a két piacot!', '🥉 Bronze — you are starting to read both markets!')
+                    : t('💪 Gyakorolj még — a két piac két külön stratégiát kíván!', '💪 Keep practicing — two markets demand two separate strategies!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez.', 'Sign in to save your score.')}
@@ -359,6 +380,14 @@ export default function Level2() {
               <div className="bg-white rounded-xl p-4 border border-indigo-100 flex justify-between items-center">
                 <span className="font-bold text-slate-700">{t('Max összesített profit', 'Max total profit')}</span>
                 <span className="text-2xl font-black text-indigo-600">{SOLUTION.profit_total} Ft</span>
+              </div>
+              <div className={`mt-3 rounded-xl p-3 text-sm font-bold ${profitLeftOnTable === 0
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {profitLeftOnTable === 0
+                  ? t('🏆 Tökéletes árdiszkrimináció — az összes elérhető profitot begyűjtötted, az igazgatótanács ünnepel!', '🏆 Perfect price discrimination — you captured every forint of available profit, the board is celebrating!')
+                  : t(`💸 Ennyi profitot hagytál az asztalon a két piacon összesen: ${profitLeftOnTable} Ft`,
+                      `💸 Total profit left on the table across both markets: ${profitLeftOnTable} Ft`)}
               </div>
             </div>
 

@@ -166,6 +166,20 @@ export default function SDLevel4() {
                   <p className="text-slate-700 text-sm leading-relaxed">
                     {t(sc.storyHu, sc.storyEn)}
                   </p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex gap-2 items-start bg-white/70 border border-violet-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎭</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t('Te vagy a pénzügyminiszter gazdasági főtanácsadója. A költségvetésnek bevétel kell — de minden forint adó a piac hatékonyságából is lecsíp.', 'You are chief economic advisor to the finance minister. The budget needs revenue — but every forint of tax also eats into market efficiency.')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-amber-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">🎯</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {t('Húzd az adócsúszkát, figyeld élőben, hogyan mozog az adóbevétel és a holtteher-veszteség (DWL), és állítsd be azt az adókulcsot, amelyet a legjobb kompromisszumnak tartasz!', 'Drag the tax slider, watch tax revenue and deadweight loss (DWL) move live, and set the tax rate you consider the best trade-off!')}</p>
+                    </div>
+                    <div className="flex gap-2 items-start bg-white/70 border border-red-200 rounded-xl p-3">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('Túl alacsony adó: üres kassza. Túl magas: összeomlik a forgalom, és a bevétel is elolvad — miközben a DWL az egekbe szökik. A te javaslatod kerül a költségvetésbe.', 'Tax too low: empty treasury. Too high: volume collapses and revenue melts away too — while DWL soars. Your proposal goes into the budget.')}</p>
+                    </div>
+                  </div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <span className="text-xs bg-white border border-violet-200 text-violet-700 px-2 py-1 rounded-lg font-semibold">
                       {t('Kereslet', 'Demand')}: {demandLabel}
@@ -325,11 +339,30 @@ export default function SDLevel4() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 180 ? t('🥇 Arany fokozat — mesteri adópolitika!', '🥇 Gold — masterful tax policy!')
+                    : accuracyPoints >= 120 ? t('🥈 Ezüst fokozat — jó egyensúlyérzék!', '🥈 Silver — good sense of balance!')
+                    : accuracyPoints >= 60 ? t('🥉 Bronz fokozat — közelítesz az optimumhoz!', '🥉 Bronze — you are closing in on the optimum!')
+                    : t('💪 Gyakorolj még — bevétel és DWL együtt mozog — keresd a fordulópontot!', '💪 Keep practicing — revenue and DWL move together — find the turning point!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez.', 'Sign in to save your score.')}
                 </p>
               )}
+            </div>
+
+            <div className={`rounded-2xl border-2 p-6 ${submittedTax === sc.defaultTax
+              ? 'border-emerald-400 bg-gradient-to-br from-emerald-50 to-teal-50'
+              : 'border-amber-300 bg-gradient-to-br from-amber-50 to-yellow-50'}`}>
+              <div className="text-4xl mb-2">{submittedTax === sc.defaultTax ? '🎯' : '📊'}</div>
+              <p className="text-sm font-bold text-slate-800">
+                {submittedTax === sc.defaultTax
+                  ? t(`🏆 A javaslatod (t=${submittedTax}) pontosan a referencia-adókulcs — ${taxDefault.tax_revenue} Ft bevétel mindössze ${taxDefault.DWL} Ft holtteher-veszteség árán!`, `🏆 Your proposal (t=${submittedTax}) hits the reference rate exactly — ${taxDefault.tax_revenue} in revenue for only ${taxDefault.DWL} of deadweight loss!`)
+                  : t(`💸 Te t=${submittedTax}-t javasoltál (bevétel ${solveTax(PARAMS, submittedTax).tax_revenue} Ft, DWL ${solveTax(PARAMS, submittedTax).DWL} Ft) — a referencia t=${sc.defaultTax} mellett ${taxDefault.tax_revenue} Ft bevétel járt volna ${taxDefault.DWL} Ft DWL-lel. A különbség a társadalom számláján csapódik le.`, `💸 You proposed t=${submittedTax} (revenue ${solveTax(PARAMS, submittedTax).tax_revenue}, DWL ${solveTax(PARAMS, submittedTax).DWL}) — the reference t=${sc.defaultTax} would have yielded ${taxDefault.tax_revenue} in revenue with ${taxDefault.DWL} of DWL. Society picks up the difference.`)}
+              </p>
             </div>
 
             {/* Chart with player's tax */}

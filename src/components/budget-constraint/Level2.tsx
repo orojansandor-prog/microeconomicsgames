@@ -158,6 +158,29 @@ export default function BCLevel2() {
                   `Below are 4 baskets — each with a different mix of ${p.labelX} (${p.Px} Ft) and ${p.labelY} (${p.Py} Ft). Rank them from best to worst!`,
                 )}
               </p>
+              <div className="mt-3 space-y-1.5 text-sm bg-white/70 border border-purple-100 rounded-xl p-3">
+                <p className="text-slate-700">
+                  <span className="font-bold">🎭 {t('Szereped', 'Your role')}:</span>{' '}
+                  {t(
+                    'Te vagy a család bevásárlásfelelőse: a hűtő üres, a családi kassza véges, és négy előre összekészített kosár közül választhatsz a boltban.',
+                    "You are the family's head of groceries: the fridge is empty, the family budget is finite, and the shop offers four pre-packed baskets.",
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">🎯 {t('Feladatod', 'Your task')}:</span>{' '}
+                  {t(
+                    'Kattints a kosarakra a legjobbtól a legrosszabbig — az első kattintásod lesz az 1. hely, és így épül fel a teljes rangsor.',
+                    'Click the baskets from best to worst — your first click takes 1st place, building the full ranking.',
+                  )}
+                </p>
+                <p className="text-slate-700">
+                  <span className="font-bold">⚠️ {t('A tét', 'The stakes')}:</span>{' '}
+                  {t(
+                    `Ha a rangsor téves, a család a rosszabb kosárral tölti a hónapot: elpazarolt jövedelem, hiányzó ${p.labelY}, elégedetlen arcok vacsoránál.`,
+                    `Rank them wrong and the family lives the month with an inferior basket: wasted income, missing ${p.labelY}, unhappy faces at dinner.`,
+                  )}
+                </p>
+              </div>
               <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-xl">
                 <p className="text-xs font-semibold text-amber-900">
                   🎯 {t(`Csapda: Melyik a jobb — A(4 ${p.labelX}, 9 ${p.labelY}) vagy B(12 ${p.labelX}, 3 ${p.labelY})?`, `Trap: Which is better — A(4 ${p.labelX}, 9 ${p.labelY}) or B(12 ${p.labelX}, 3 ${p.labelY})?`)}
@@ -282,6 +305,36 @@ export default function BCLevel2() {
               <p className="mt-3 text-xs opacity-80">
                 {t('C legjobb = +300 pt | A és B szomszédos = +200 pt', 'C ranked first = +300 pts | A and B adjacent = +200 pts')}
               </p>
+              {(() => {
+                const frac = ap / 500
+                const medal = frac >= 0.9 ? '🥇' : frac >= 0.6 ? '🥈' : frac >= 0.3 ? '🥉' : '💪'
+                const medalLabel =
+                  frac >= 0.9 ? t('Arany fokozat', 'Gold medal')
+                  : frac >= 0.6 ? t('Ezüst fokozat', 'Silver medal')
+                  : frac >= 0.3 ? t('Bronz fokozat', 'Bronze medal')
+                  : t('Gyakorolj még!', 'Keep practicing!')
+                const firstBasket = baskets.find(b => b.id === ranking[0]) ?? baskets[3]
+                const U_first = utilityAt(p, firstBasket.X, firstBasket.Y)
+                return (
+                  <div className="mt-3 flex items-center gap-3 bg-white/20 rounded-xl p-3">
+                    <span className="text-3xl">{medal}</span>
+                    <div>
+                      <div className="font-black text-sm">{medalLabel}</div>
+                      <div className="text-xs opacity-90 mt-0.5">
+                        {ranking[0] === 'C'
+                          ? t(
+                              `Telitalálat: a legjobb kosárral indítottál — U=${U_C.toFixed(2)}, ennél többet nem hozhattál volna ki a családnak!`,
+                              `Bullseye: you led with the best basket — U=${U_C.toFixed(2)}, the most you could get for the family!`,
+                            )
+                          : t(
+                              `A te első választásod (${firstBasket.label}) U=${U_first.toFixed(2)} — az optimális C kosár U=${U_C.toFixed(2)}. Ennyi boldogság maradt a polcon!`,
+                              `Your top pick (${firstBasket.label}) gives U=${U_first.toFixed(2)} — the optimal basket C gives U=${U_C.toFixed(2)}. That much happiness left on the shelf!`,
+                            )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Eredmény banner */}

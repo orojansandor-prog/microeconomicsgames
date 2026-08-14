@@ -154,6 +154,22 @@ export default function Level4() {
 
         {phase === 'try' && (
           <>
+            {/* Küldetés */}
+            <div className="bg-white rounded-2xl border-2 border-indigo-200 p-5 space-y-2">
+              <div className="flex gap-2 items-start bg-indigo-50 rounded-xl p-3">
+                <span className="text-lg flex-shrink-0">🎭</span>
+                <p className="text-sm text-slate-700"><span className="font-bold text-indigo-800">{t('Szereped:', 'Your role:')}</span> {t(`Te vagy a szabályozó hatóság (${sc.regulatorHu}) vezetője — a monopólium visszaél az erőfölényével, és most nálad van a törvény ereje.`, `You head the regulator (${sc.regulatorEn}) — the monopolist is abusing its market power, and now you hold the force of law.`)}</p>
+              </div>
+              <div className="flex gap-2 items-start bg-amber-50 rounded-xl p-3">
+                <span className="text-lg flex-shrink-0">🎯</span>
+                <p className="text-sm text-slate-700"><span className="font-bold text-amber-800">{t('Feladatod:', 'Your task:')}</span> {t('Húzd a csúszkát, és állítsd be azt az árplafont, amely teljesen megszünteti a holtteher-veszteséget (DWL = 0) — de nem teszi tönkre a vállalatot!', 'Drag the slider and set the price cap that fully eliminates deadweight loss (DWL = 0) — without bankrupting the firm!')}</p>
+              </div>
+              <div className="flex gap-2 items-start bg-red-50 rounded-xl p-3">
+                <span className="text-lg flex-shrink-0">⚠️</span>
+                <p className="text-sm text-slate-700"><span className="font-bold text-red-700">{t('A tét:', 'The stakes:')}</span> {t('Túl magas plafon: a fogyasztók tovább véreznek. Túl alacsony: a cég bezár, és mindenki termék nélkül marad. Az egész ország a döntésedet figyeli!', 'Cap too high: consumers keep bleeding. Too low: the firm shuts down and everyone is left without the product. The whole country is watching your decision!')}</p>
+              </div>
+            </div>
+
             {/* Jelmagyarázat */}
             <div className="bg-white rounded-2xl border border-slate-200 p-5">
               <h2 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
@@ -290,11 +306,36 @@ export default function Level4() {
                   </div>
                 ))}
               </div>
+              <div className="bg-white/10 rounded-xl p-3 text-center mb-3">
+                <span className="text-base font-black">
+                  {accuracyPoints >= 450 ? t('🥇 Arany fokozat — mesteri szabályozás!', '🥇 Gold — masterful regulation!')
+                    : accuracyPoints >= 300 ? t('🥈 Ezüst fokozat — hatásos beavatkozás!', '🥈 Silver — effective intervention!')
+                    : accuracyPoints >= 150 ? t('🥉 Bronz fokozat — a plafon még csúszkál!', '🥉 Bronze — the cap is still wobbling!')
+                    : t('💪 Gyakorolj még — a fogyasztók számítanak rád!', '💪 Keep practicing — consumers are counting on you!')}
+                </span>
+              </div>
               {!session && (
                 <p className="text-xs text-indigo-200 text-center">
                   {t('Jelentkezz be az eredmény mentéséhez.', 'Sign in to save your score.')}
                 </p>
               )}
+            </div>
+
+            {/* Következmény */}
+            <div className={`rounded-2xl border-2 p-6 ${result.isEfficient && !noEffect
+              ? 'border-emerald-400 bg-gradient-to-br from-emerald-50 to-teal-50'
+              : 'border-amber-300 bg-gradient-to-br from-amber-50 to-yellow-50'}`}>
+              <div className="text-4xl mb-2">{result.isEfficient && !noEffect ? '🎯' : '📊'}</div>
+              <h2 className="text-xl font-black text-slate-900 mb-1">
+                {result.isEfficient && !noEffect
+                  ? t(`Telitalálat! A ${cap} Ft-os plafonod pontosan a hatékony szinten van.`, `Bullseye! Your cap of ${cap} sits exactly at the efficient level.`)
+                  : t(`Te ${cap} Ft-os plafont hirdettél ki — a hatékony szint MC = ${MC} Ft lett volna.`, `You announced a cap of ${cap} — the efficient level would have been MC = ${MC}.`)}
+              </h2>
+              <p className={`text-sm font-bold ${result.isEfficient && !noEffect ? 'text-emerald-700' : 'text-red-600'}`}>
+                {result.isEfficient && !noEffect
+                  ? t('🏆 DWL = 0 — egyetlen forintnyi társadalmi jólét sem veszett el. A fogyasztók neked tapsolnak!', '🏆 DWL = 0 — not a single forint of social welfare was lost. Consumers applaud you!')
+                  : t(`💸 A plafonod mellett ${result.DWL_capped.toFixed(1)} Ft társadalmi jólét vész el (DWL) — ennyit hagytál az asztalon.`, `💸 Under your cap, ${result.DWL_capped.toFixed(1)} of social welfare is lost (DWL) — that is what you left on the table.`)}
+              </p>
             </div>
 
             {/* Tanulság */}
