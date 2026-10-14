@@ -4,9 +4,6 @@
 
 # A function runtime rögzítése a 2026-09-12-i állapotra (nodejs24.x), Morpheus msg 267.
 [build.environment]
-  # A Netlify a function runtime-ot a build Node-verziójából veszi (mérve 2026-10-14: az
-  # AWS_LAMBDA_JS_RUNTIME itt hatástalan volt, 22.x lett), ezért a NODE_VERSION rögzít.
-  NODE_VERSION = "24"
   AWS_LAMBDA_JS_RUNTIME = "nodejs24.x"
 
 [[redirects]]
