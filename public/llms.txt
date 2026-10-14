@@ -13,12 +13,37 @@ A Microeconomics Games egy innovatív oktatási platform, amely a mikroökonómi
 
 ## Elérhető játékok és szintek
 
+Öt játék, mindegyik négy szinttel:
+
 ### Monopólium
-Négy progresszív szint:
-1. Monopólium alapjai — vásárlói fizetési hajlandóság, optimális ár és mennyiség
-2. Árdiszkrimináció — első-, másod- és harmadfokú árdiszkrimináció
-3. Oligopólium — Cournot, Bertrand, Stackelberg modellek
-4. Árszabályozás — árplafon, árpadló, természetes monopólium szabályozása
+1. Árdöntés
+2. Árdiszkrimináció
+3. Verseny vs. Monopólium
+4. Szabályozás
+
+### Kereslet-kínálat
+1. Piaci egyensúly
+2. Eltolódások
+3. Beavatkozások
+4. Jóléti hatások
+
+### Fogyasztáselmélet
+1. Költségvetési egyenes
+2. Közömbösségi görbék
+3. Fogyasztói optimum
+4. Ár- és jövedelemhatás
+
+### Vállalati költségek
+1. Fix vs. Változó
+2. Határköltség
+3. Átlagköltségek
+4. Profitmaximalizálás
+
+### Rugalmasság
+1. Kereslet árrugalmassága (PED)
+2. Kínálat rugalmassága (PES)
+3. Kereszt-árrugalmasság (XED)
+4. Jövedelemrugalmasság (YED)
 
 ## Technológia
 
