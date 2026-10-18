@@ -13,7 +13,8 @@ export interface ScoreEntry {
 }
 
 export interface LeaderboardRow {
-  user_email: string
+  user_id: string
+  display_name: string
   score: number
   accuracy_points: number
   time_bonus: number
@@ -42,12 +43,18 @@ export async function submitScore(entry: ScoreEntry): Promise<void> {
   await supabase.from('game_scores').insert(entry)
 }
 
+// One leaderboard entry per player. The e-mail address is not readable by the
+// public (anon) role; display_name is the part before the '@' (generated column).
+function playerKey(row: { user_id: string | null; display_name: string | null }): string {
+  return row.user_id ?? `name:${row.display_name ?? ''}`
+}
+
 // Returns top 10 + current user's entry (with rank) if they're outside top 10
 // level 1-4 = monopoly, level 5-8 = supply-demand
-export async function fetchLeaderboard(level: number, myEmail?: string): Promise<LeaderboardResult> {
+export async function fetchLeaderboard(level: number, myUserId?: string): Promise<LeaderboardResult> {
   const { data } = await supabase
     .from('game_scores')
-    .select('user_email, score, accuracy_points, time_bonus, quiz_points, time_taken_seconds, created_at')
+    .select('user_id, display_name, score, accuracy_points, time_bonus, quiz_points, time_taken_seconds, created_at')
     .eq('level', level)
     .order('score', { ascending: false })
     .limit(500)
@@ -56,9 +63,10 @@ export async function fetchLeaderboard(level: number, myEmail?: string): Promise
 
   // Deduplicate: keep best score per user
   const seen = new Map<string, LeaderboardRow>()
-  for (const row of data) {
-    if (!seen.has(row.user_email) || row.score > seen.get(row.user_email)!.score) {
-      seen.set(row.user_email, row as LeaderboardRow)
+  for (const row of data as LeaderboardRow[]) {
+    const key = playerKey(row)
+    if (!seen.has(key) || row.score > seen.get(key)!.score) {
+      seen.set(key, row)
     }
   }
 
@@ -67,8 +75,8 @@ export async function fetchLeaderboard(level: number, myEmail?: string): Promise
   const top10 = ranked.slice(0, 10)
 
   let myEntry: LeaderboardResult['myEntry'] = null
-  if (myEmail) {
-    const myIdx = ranked.findIndex(r => r.user_email === myEmail)
+  if (myUserId) {
+    const myIdx = ranked.findIndex(r => r.user_id === myUserId)
     if (myIdx >= 10) {
       myEntry = { row: ranked[myIdx], rank: myIdx + 1 }
     }
@@ -112,7 +120,8 @@ export function levelToGame(level: number): { game: string; displayLevel: number
 }
 
 export interface GlobalLeaderboardRow {
-  user_email: string
+  user_id: string
+  display_name: string
   total: number
   gamesPlayed: number
 }
@@ -121,7 +130,7 @@ export interface GlobalLeaderboardRow {
 export async function fetchGlobalLeaderboard(): Promise<GlobalLeaderboardRow[]> {
   const { data } = await supabase
     .from('game_scores')
-    .select('user_email, level, score')
+    .select('user_id, display_name, level, score')
     .order('score', { ascending: false })
     .limit(5000)
 
@@ -129,17 +138,22 @@ export async function fetchGlobalLeaderboard(): Promise<GlobalLeaderboardRow[]> 
 
   // Per user, per level: best score only
   const userLevelBest = new Map<string, Map<number, number>>()
-  for (const row of (data as { user_email: string; level: number; score: number }[])) {
-    if (!userLevelBest.has(row.user_email)) userLevelBest.set(row.user_email, new Map())
-    const levels = userLevelBest.get(row.user_email)!
+  const players = new Map<string, { user_id: string; display_name: string }>()
+  for (const row of (data as { user_id: string; display_name: string; level: number; score: number }[])) {
+    const key = playerKey(row)
+    if (!userLevelBest.has(key)) {
+      userLevelBest.set(key, new Map())
+      players.set(key, { user_id: row.user_id, display_name: row.display_name })
+    }
+    const levels = userLevelBest.get(key)!
     if (!levels.has(row.level) || row.score > levels.get(row.level)!) {
       levels.set(row.level, row.score)
     }
   }
 
   return Array.from(userLevelBest.entries())
-    .map(([user_email, levels]) => ({
-      user_email,
+    .map(([key, levels]) => ({
+      ...players.get(key)!,
       total: Array.from(levels.values()).reduce((s, v) => s + v, 0),
       gamesPlayed: levels.size,
     }))

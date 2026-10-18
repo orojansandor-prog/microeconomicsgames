@@ -434,14 +434,14 @@ export default function HomePage() {
                   </thead>
                   <tbody>
                     {globalRows.map((row, i) => {
-                      const isMe = row.user_email === session?.user?.email
+                      const isMe = row.user_id === session?.user?.id
                       return (
                         <tr key={i} className={`border-b border-slate-50 last:border-0 ${isMe ? 'bg-indigo-50' : ''}`}>
                           <td className="py-2.5">
                             {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : <span className="text-slate-400">{i + 1}</span>}
                           </td>
                           <td className="py-2.5 font-medium text-slate-800 truncate max-w-[140px]">
-                            {row.user_email.split('@')[0]}
+                            {row.display_name}
                             {isMe && <span className="ml-1.5 text-xs bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full font-bold">{t('Te', 'You')}</span>}
                           </td>
                           <td className="py-2.5 text-right font-black text-slate-900 text-base">{row.total.toLocaleString('hu-HU')}</td>

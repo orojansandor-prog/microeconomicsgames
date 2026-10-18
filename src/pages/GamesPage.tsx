@@ -92,14 +92,14 @@ function RankingsPanel({ t }: { t: (hu: string, en: string) => string }) {
 
   const game = availableGames[gameIdx]
   const scoreLevel = game.scoreOffset + (game.levels[levelIdx]?.id ?? levelIdx + 1)
-  const myEmail = session?.user?.email
+  const myUserId = session?.user?.id
 
   useEffect(() => {
     if (!game) return
     setLoading(true)
     setResult({ top10: [], myEntry: null })
-    fetchLeaderboard(scoreLevel, myEmail).then(data => { setResult(data); setLoading(false) })
-  }, [scoreLevel, myEmail, game])
+    fetchLeaderboard(scoreLevel, myUserId).then(data => { setResult(data); setLoading(false) })
+  }, [scoreLevel, myUserId, game])
 
   function renderRow(row: LeaderboardRow, rank: number, isMe: boolean) {
     return (
@@ -108,7 +108,7 @@ function RankingsPanel({ t }: { t: (hu: string, en: string) => string }) {
           {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : <span className="text-slate-400 text-sm">{rank}</span>}
         </td>
         <td className="py-3 font-medium text-slate-800 max-w-[140px] truncate">
-          {row.user_email.split('@')[0]}
+          {row.display_name}
           {isMe && <span className="ml-1.5 text-xs bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full font-bold">Te</span>}
         </td>
         <td className="py-3 text-right font-black text-slate-900 text-base">{row.score}</td>
@@ -176,7 +176,7 @@ function RankingsPanel({ t }: { t: (hu: string, en: string) => string }) {
           <table className="w-full text-sm">
             {tableHead}
             <tbody>
-              {result.top10.map((row, i) => renderRow(row, i + 1, row.user_email === myEmail))}
+              {result.top10.map((row, i) => renderRow(row, i + 1, row.user_id === myUserId))}
               {result.myEntry && (
                 <>
                   <tr><td colSpan={6} className="py-1"><div className="border-t-2 border-dashed border-indigo-200 my-1" /></td></tr>

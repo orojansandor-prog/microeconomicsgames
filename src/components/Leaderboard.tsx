@@ -14,12 +14,12 @@ export default function Leaderboard({ level, refreshKey = 0 }: Props) {
   const [result, setResult] = useState<LeaderboardResult>({ top10: [], myEntry: null })
   const [loading, setLoading] = useState(true)
 
-  const myEmail = session?.user?.email
+  const myUserId = session?.user?.id
 
   useEffect(() => {
     setLoading(true)
-    fetchLeaderboard(level, myEmail).then(data => { setResult(data); setLoading(false) })
-  }, [level, refreshKey, myEmail])
+    fetchLeaderboard(level, myUserId).then(data => { setResult(data); setLoading(false) })
+  }, [level, refreshKey, myUserId])
 
   if (loading) return (
     <div className="text-center py-8 text-slate-400 text-sm">{t('Betöltés…', 'Loading…')}</div>
@@ -35,7 +35,7 @@ export default function Leaderboard({ level, refreshKey = 0 }: Props) {
           {rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : <span className="text-slate-400">{rank}</span>}
         </td>
         <td className="py-2.5 font-medium text-slate-800 max-w-[120px] truncate">
-          {row.user_email.split('@')[0]}
+          {row.display_name}
           {isMe && <span className="ml-1 text-xs text-indigo-600 font-bold">(Te)</span>}
         </td>
         <td className="py-2.5 text-right font-black text-slate-900">{row.score}</td>
@@ -60,7 +60,7 @@ export default function Leaderboard({ level, refreshKey = 0 }: Props) {
           </tr>
         </thead>
         <tbody>
-          {result.top10.map((row, i) => renderRow(row, i + 1, row.user_email === myEmail))}
+          {result.top10.map((row, i) => renderRow(row, i + 1, row.user_id === myUserId))}
           {result.myEntry && (
             <>
               <tr><td colSpan={6}><div className="border-t-2 border-dashed border-indigo-200 my-1" /></td></tr>
