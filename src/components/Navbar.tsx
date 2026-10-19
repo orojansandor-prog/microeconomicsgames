@@ -32,7 +32,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <img src="/microeconomicsgameslogo1.png" alt="MicroeconomicsGames" className="h-12 w-auto" />
+          <img src="/microeconomicsgameslogo1-256.jpg" width={256} height={256} alt="MicroeconomicsGames" className="h-12 w-auto" />
           <div className="hidden sm:flex flex-col justify-center">
             <span className="font-black text-sm tracking-widest text-slate-800 uppercase leading-tight">PLAY · LEARN · MASTER!</span>
             <span className="text-[10px] text-slate-400 font-medium leading-tight mt-0.5">AI powered microeconomics games · by <a href="https://orojansandor.hu" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 transition-colors">Sándor Oroján</a>, professor of Nyíregyháza University</span>

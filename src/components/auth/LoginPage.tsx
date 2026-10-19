@@ -54,7 +54,7 @@ export default function LoginPage() {
         {/* Logo/brand */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-3">
-            <img src="/microeconomicsgameslogo1.png" alt="MicroeconomicsGames" className="h-16 w-auto" />
+            <img src="/microeconomicsgameslogo1-256.jpg" width={256} height={256} alt="MicroeconomicsGames" className="h-16 w-auto" />
           </div>
           <p className="font-black text-sm tracking-widest text-slate-800 uppercase leading-tight">PLAY · LEARN · MASTER!</p>
           <p className="mt-1 text-slate-500 text-xs">

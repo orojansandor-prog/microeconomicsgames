@@ -291,7 +291,7 @@ export default function GamesPage() {
       {/* ── Mobile topbar ────────────────────────────────────────────────── */}
       <header className="md:hidden flex items-center justify-between px-4 py-2.5 bg-white border-b border-slate-200 sticky top-0 z-40">
         <a href="/" className="flex items-center gap-2">
-          <img src="/microeconomicsgameslogo1.png" alt="Home" className="h-8 w-auto" />
+          <img src="/microeconomicsgameslogo1-256.jpg" width={256} height={256} alt="Home" className="h-8 w-auto" />
           <span className="font-black text-[10px] tracking-widest text-slate-700 uppercase leading-tight">PLAY · LEARN · MASTER!</span>
         </a>
         <div className="flex items-center gap-2">
@@ -319,7 +319,7 @@ export default function GamesPage() {
         {/* Logo */}
         <div className="px-4 py-3 border-b border-slate-100">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/microeconomicsgameslogo1.png" alt="MicroeconomicsGames" className="h-10 w-auto shrink-0" />
+            <img src="/microeconomicsgameslogo1-256.jpg" width={256} height={256} alt="MicroeconomicsGames" className="h-10 w-auto shrink-0" />
             <div className="flex flex-col justify-center min-w-0">
               <span className="font-black text-[10px] tracking-widest text-slate-800 uppercase leading-tight">PLAY · LEARN · MASTER!</span>
               <span className="text-[8px] text-slate-400 font-medium leading-tight mt-0.5 truncate">AI powered · by <a href="https://orojansandor.hu" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 transition-colors">Sándor Oroján</a></span>

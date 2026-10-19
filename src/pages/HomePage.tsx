@@ -58,7 +58,12 @@ export default function HomePage() {
       {/* Mobile hero: kép + szöveg egymás alatt */}
       <section className="sm:hidden bg-slate-950">
         <img
-          src="/microgameshero2.png"
+          src="/microgameshero2-828.jpg"
+          srcSet="/microgameshero2-828.jpg 828w, /microgameshero2.jpg 1672w"
+          sizes="100vw"
+          width={1672}
+          height={941}
+          fetchPriority="high"
           alt="Microeconomics Games – interaktív közgazdaságtani játékok"
           className="w-full object-cover max-h-56"
         />
@@ -100,7 +105,9 @@ export default function HomePage() {
       {/* Desktop hero: overlay megmarad */}
       <section className="hidden sm:block relative">
         <img
-          src="/microgameshero2.png"
+          src="/microgameshero2.jpg"
+          width={1672}
+          height={941}
           alt="Microeconomics Games – interaktív közgazdaságtani játékok"
           className="w-full object-contain"
         />
@@ -211,7 +218,11 @@ export default function HomePage() {
           <div className="md:col-span-1">
             <div className="bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-100 rounded-2xl p-6 text-center md:sticky md:top-24">
               <img
-                src="/profile-photo-2.png"
+                src="/profile-photo-2.jpg"
+                width={480}
+                height={504}
+                loading="lazy"
+                decoding="async"
                 alt="Oroján Sándor"
                 className="w-40 h-40 mx-auto rounded-full object-cover shadow-lg mb-4 border-2 border-indigo-100" style={{objectPosition: "center 20%"}}
               />
