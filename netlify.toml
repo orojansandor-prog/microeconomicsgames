@@ -9,3 +9,10 @@
 
 [functions]
   directory = "netlify/functions"
+
+# Clickjacking protection (Seraph audit, 2026-11-03): no other site may frame microeconomicsgames.com.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self'"
